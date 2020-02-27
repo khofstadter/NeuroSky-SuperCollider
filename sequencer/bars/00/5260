@@ -1,0 +1,88 @@
+var o, p;
+o = [
+	Array.prNew(32),  Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  
+	Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  
+	Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  
+	Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  
+	Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  
+	Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  
+	Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  
+	Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  
+	Array.prNew(4)
+];
+p = [
+	// Array
+	0, [ o[1],  o[2],  o[3],  o[4],  
+		o[5],  o[6],  o[7],  o[8],  
+		o[9],  o[10],  o[11],  o[12],  
+		o[13],  o[14],  o[15],  o[16],  
+		o[17],  o[18],  o[19],  o[20],  
+		o[21],  o[22],  o[23],  o[24],  
+		o[25],  o[26],  o[27],  o[28],  
+		o[29],  o[30],  o[31],  o[32] ],  
+	// Array
+	1, [ 84.000000,  0.500000,  1.610000,  0.610000 ],  
+	// Array
+	2, [ 96.000000,  0.500000,  1.310000,  1.000000 ],  
+	// Array
+	3, [ 96.000000,  0.300000,  2.750000,  0.310000 ],  
+	// Array
+	4, [ 43.000000,  0.480000,  1.160000,  0.490000 ],  
+	// Array
+	5, [ nil,  0.050000,  0.010000,  0.170000 ],  
+	// Array
+	6, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	7, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	8, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	9, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	10, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	11, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	12, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	13, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	14, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	15, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	16, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	17, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	18, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	19, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	20, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	21, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	22, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	23, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	24, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	25, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	26, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	27, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	28, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	29, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	30, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	31, [ nil,  nil,  0.010000,  0.010000 ],  
+	// Array
+	32, [ nil,  nil,  0.010000,  0.010000 ]
+];
+prUnarchive(o,p);

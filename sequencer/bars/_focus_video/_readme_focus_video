@@ -1,0 +1,18 @@
+_focus_video
+~tempoka = 4.16;
+~beat = 32; //you can change it
+~scaleNb = 0; //mixolydian
+
+
+
+0)simpleFM;
+000-001-002
+
+1)FM1
+010
+
+2)FM3
+020
+
+3)windpad
+030
