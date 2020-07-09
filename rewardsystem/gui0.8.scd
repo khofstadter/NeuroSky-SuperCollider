@@ -2,7 +2,7 @@ var neuroskyButton;
 var practiceModeButton;
 var startIslandButton;
 
-w = GUI.window.new("pSig", Rect(10, 0, 455, 250)).front;
+w = GUI.window.new("pSig", Rect(1000, 800, 455, 250)).front;
 
 ~toMoveBox = 0 ! 6;
 ~rewardPointsBox = 0 ! 6;

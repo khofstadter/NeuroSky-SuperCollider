@@ -9,10 +9,14 @@ TODO
 
 //pattern for all tracks with pitch, amp, envelope and duration
 p = Array.fill3D(~size, ~beat, 4, 0);
+~memL = [p.deepCopy,p.deepCopy,p.deepCopy,p.deepCopy];
+~memory = Array.fill2D(~beat, 4, 0); //global memory;
+
+~trackSample = (0 ! ~size);
 ~onOff = 0 ! ~size; //track is engadged or not
 ~onOffElastic = 0 ! ~size; //track for elastic pattern engadged or not
 ~eBeat = 0 ! ~size; //on which beat ~schedElasticOnce[track] shall be played
-m = (0.0 ! 10); //m: master volume in SynthDefs (instrument/track volume)
+m = (0.0 ! ~size); //m: master volume in SynthDefs (instrument/track volume)
 ~m2 = (0.0 ! 4); //m: master volume in SynthDefs to be used with ~constantSynths
 ~synth = \sine ! ~size; //this var is to be used to select synths for tracks
 ~synth2 = \sine ! 4; //this var is used to select synths for constantSynths (no envelope)
@@ -28,7 +32,7 @@ m = (0.0 ! 10); //m: master volume in SynthDefs (instrument/track volume)
             // "play".postln;
             ~midi.allNotesOff(track); //send noteOff
             0.05.wait; // some external MIDI device needs some time
-            ~midi.noteOn(track, p[track][~counter][0]); //send noteOn;
+            ~midi.noteOn(track, p[track][c][0]); //send noteOn;
         });
     });
 
@@ -40,30 +44,37 @@ m = (0.0 ! 10); //m: master volume in SynthDefs (instrument/track volume)
 // sheduling with with tempoClock (t)
 ~sched = { |track|
     if(
-        (p[track][~counter][0] == nil) || (p[track][~counter][0] == 0) || (p[track][~counter][1] == nil) || (p[track][~counter][1] == 0) || (p[track][~counter][2] == nil) || (p[track][~counter][2] == 0),
+        (p[track][c][0] == nil) || (p[track][c][0] == 0) || (p[track][c][1] == nil) || (p[track][c][1] == 0) || (p[track][c][2] == nil) || (p[track][c][2] == 0),
 
         {
-            // (track+"track_pause as pit/amp/sus is nil").postln;
+           // (track+"track_pause as pit/amp/sus is nil").postln;
         },
 
 
         {
             if( ~midiOrVal[track] != 0,
 
-                // not 0 - midiNoteOn sent to channels;
-                {
+               // not 0 - midiNoteOn sent to channels;
+
+				{
                     "midi out".postln;
                     ~midiOutFunction.value(track).play; //plays default;
                 },
 
                 // synth made in SuperCollider
                 {
-                    Synth( ~synth[track],
-                        [ \freq, p[track][~counter][0],
-                            \amp, p[track][~counter][1],
-                            \sustain, p[track][~counter][2],
+                 Synth( ~synth[track],
+                        [
+							// for synthesis
+							\freq, p[track][c][0],
+                            \amp, p[track][c][1],
+                            \sustain, p[track][c][2],
                             \master, m[track],
-                            \out, ~out]);
+                            \out, ~out,
+
+							// for samples
+							\buf, ~trackSample[track]
+					], ~grp0);
                 },
             );
 
@@ -79,11 +90,11 @@ m = (0.0 ! 10); //m: master volume in SynthDefs (instrument/track volume)
     Routine{
 
         // for Elastic Loops;
-        if(~counter==(~beat-4), //schedule them 4 beats before nextBar to make sure they are in the game for the next loop
+        if(c==(~beat-4), //schedule them 4 beats before nextBar to make sure they are in the game for the next loop
             {
-                10.do{ |i|
+                ~size.do{ |i|
                     if	( ~onOffElastic[i] !== 0,
-                        {( "if ~counter is 0 open on track: "+ i).postln;
+                        {( "if c is 0 open on track: "+ i).postln;
                             t.schedAbs(t.nextBar+~eBeat[i], {~schedElasticOnce.value(i).play}).postln;
                             t.queue;
                 };);};
@@ -91,15 +102,15 @@ m = (0.0 ! 10); //m: master volume in SynthDefs (instrument/track volume)
 
 
         // for normal loops;
- //       s.bind{
+        s.bind{
 
-            10.do{ |i|
+            ~size.do{ |i|
                 if	( ~onOff[i] !== 0,
                     { ~sched.value(i);});
                 // ~delay.wait;
 };};};
 
-//};
+};
 );
 
 //Elastic Clock
@@ -136,12 +147,16 @@ m = (0.0 ! 10); //m: master volume in SynthDefs (instrument/track volume)
 
                 {
 
-                    Synth( ~synth[track],
+                 Synth( ~synth[track],
                         [ \freq, stream[i][0],
                             \amp, stream[i][1],
                             \sustain, stream[i][2],
                             \master, m[track],
-                            \out, ~out]);
+                            \out, ~out,
+
+							// for samples
+							\buf, ~trackSample[track]
+					], ~grp0);
 
                     if(stream[i%~beat][3] != nil and: {stream[i%~beat][3] != 0 },
 
@@ -194,12 +209,16 @@ m = (0.0 ! 10); //m: master volume in SynthDefs (instrument/track volume)
 
                 {
 
-					 Synth( ~synth[track],
+					Synth( ~synth[track],
                         [ \freq, stream[i%~beat][0],
                             \amp, stream[i%~beat][1],
                             \sustain, stream[i%~beat][2],
                             \master, m[track],
-                            \out, ~out]);
+                            \out, ~out,
+
+							// for samples
+							\buf, ~trackSample[track]
+					], ~grp0);
 
                     if(stream[i%~beat][3] != nil and: {stream[i%~beat][3] != 0 },
 
@@ -220,9 +239,110 @@ m = (0.0 ! 10); //m: master volume in SynthDefs (instrument/track volume)
     };
 };
 
+
+/*
 // Fade Constant Synths is and out
 // Don't evaluate again while fading out (as it will be freed).
 // You have to be careful with this and consider the time when reevaluating
+
+~fadeConstantSynts = { arg track=0, vol=0.1, time=0.3, freqmidi=75;
+
+    var fade = { arg a, b, time;
+        var d = (b - a).abs; //absolute difference
+        var e = time/100; //one step
+        var f = d/100; //step size
+        var g = a;
+
+        if (a==0,
+            {"fade in".postln;
+                Task({100.do({ g=g+f; ~constantSynth[track].set(\amp, g); e.wait;});}).start;
+            },
+            {"fade out".postln;
+                Task({100.do({ g=g-f; ~constantSynth[track].set(\amp, g); e.wait;});}).start;
+            }
+        )
+    };
+
+
+
+    var changing = Task({
+        var newVal0 = 0;
+        var oldVal0 = 0;
+        var newVal1 = 0;
+        var oldVal1 = 0;
+
+        inf.do({
+            newVal0 = ~attention/100;
+            newVal1 = ~meditation/100;
+            if (newVal0 !== oldVal0,
+                {
+                    ~constantSynth[track].set(\change0, newVal0;);
+                    //newVal0.postln;
+                },
+
+                {
+                    //	"no change in eSense0".postln;
+                }
+            );
+
+            if (newVal1 !== oldVal1,
+                {
+                    ~constantSynth[track].set(\change1, newVal1;);
+                    //newVal1.postln;
+                },
+
+                {
+                    //	"no change in eSense1".postln;
+                }
+            );
+
+            oldVal0 = newVal0;
+            oldVal1 = newVal1;
+            0.01.wait;
+
+        });
+    });
+
+    Task {
+
+        // a : from
+        // b : to
+        // c : time
+
+        ("run fadePads on track : " + track).postln;
+        if (~constantSynth[track].isPlaying == true,
+            // free
+            {"~constantSynth is playing > free".postln;
+
+                fade.value(vol,0,time);
+                x.stop; //changing Task
+                time.wait;
+                ~constantSynth[track].free;
+                ~constantSynth[track] = nil; },
+
+            // make synth
+            {
+                "make a synth".postln;
+                ~constantSynth[track] =
+                Synth( ~synth2[track], [ \freq, freqmidi,
+                    \amp, 0.0,
+                    // \sustain, 1000,
+                    \master, ~m2[0],
+                    \change0, ~attention;
+                    \change1, ~meditation;
+                    \out, ~out]);
+
+                0.3.wait; //maybe no need, just makes sure the above Synth is ready
+                fade.value(0,vol,time);
+                x = changing.start;
+            };
+    );}; //end of Task
+
+};//end of ~fadePads
+
+
+*/
+
 
 ~fadeConstantSynts = { arg track=0, vol=0.1, time=0.3, freqmidi=75;
 
@@ -319,6 +439,8 @@ m = (0.0 ! 10); //m: master volume in SynthDefs (instrument/track volume)
     );}; //end of Task
 
 };//end of ~fadePads
+
+
 
 //
 // // Fade Constant Synths is and out

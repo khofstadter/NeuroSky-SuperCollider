@@ -289,7 +289,7 @@ that when 'rewardPoints array' changes trigger sounds or certain behaviours.
 
 		track : on which track/instrument shall it be played
 
-		idx0 & idx1 : with the two coordinates you can define
+		idx0 & idx1 : with these two coordinates you can define
 		a Task in a 2D array called ~rewardPoints (in rewards.rtf);
 		~rewardPoints [0][0-3] - to make attention rewardPoints Tasks
 		~rewardPoints [1][0-3] - to make meditation rewardPoints Tasks
