@@ -25,7 +25,6 @@ s.waitForBoot {
 
 // -----------------------------------------------------
 
-
 // midi needs to be off when sustain of note finishes.
 // MIDI
 MIDIClient.init;

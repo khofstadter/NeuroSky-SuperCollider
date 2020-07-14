@@ -165,7 +165,7 @@ m = (0.0 ! ~size); //m: master volume in SynthDefs (instrument/track volume)
 // Schedule Loop
 //~schedElasticLoopPlay[0] = ~schedElasticLoop.value(0).play;
 //~schedElasticLoopPlay[0].stop;
-~schedElasticLoop = { |track|
+~schedElasticLoop = {|track|
 	var stream = p[track];
 	Routine{
 		inf.do{|i|
@@ -212,7 +212,7 @@ m = (0.0 ! ~size); //m: master volume in SynthDefs (instrument/track volume)
 };
 
 ~fadeConstantSynts = {
-	arg track, vol, time=0.3, freqmidi, medOrAtt0, medOrAtt1;
+	arg track,vol,time=0.3,freqmidi,medOrAtt0,medOrAtt1;
 	var fade = {
 		arg a, b, time;
 		var d = (b - a).abs; //absolute difference
@@ -275,7 +275,7 @@ m = (0.0 ! ~size); //m: master volume in SynthDefs (instrument/track volume)
 				~constantSynth[track] =
 				Synth( ~synth2[track], [ \freq, freqmidi,
 					\amp, 0.0,
-					\master, ~m2[0],
+					\master, ~m2[track],
 					\change0, 0;
 					\change1, 0;
 					\out, ~out,

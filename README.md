@@ -1,10 +1,25 @@
 # focus-nf-neurosky-supercollider
 
-neurofeedback training with neurosky and supercollider
+Neurofeedback with NeuroSky and SuperCollider. An audio neurogame.
 
-![screenshot](screenshot-focus-nf.jpg?raw=true "OpenBCI-screenshot")
+Two parts:
+
+1. focus-neurofeedback:
+
+![screenshot](screenshot-focus-nf.jpg?raw=true "focus-nf")
+
+2. focus-sequencer:
+
+![screenshot](screenshot-focus-seq.jpg?raw=true "focus-sequencer")
 
 ## log
+* 0.1.8
+  - made arguments clearer in functions after .value (added UX)
+  - panning Ugen parameters are slightly different in each constantSynth.  they are can be controlled by the eSenses.  one side of the Pan is the same, so when 2 synths are mapped to different eSenses (the higher a value the more in phase the sounds are, the lower, the less in phase)
+  - victory sound on track 9 (each islet the same)
+  - 3 islets (no sea), challenges are there, but they don't move (so no pressure, users can choose each islet manually)' '
+  - synths removed;
+
 * 0.1.7 (2020-07-09)
   - can choose which eSense controls constantSynth parameter.  can add 3rd synth that can be controlled by both (change0 and change 3) in ~fadeConstantSynts
   - manual threshold added (~rewCalcTask simplified)
@@ -15,11 +30,20 @@ neurofeedback training with neurosky and supercollider
 * 0.1.3.7 (2016-06-05)
 
 ## TODO
-- make 3rd constant synth that uses both eSenses to change itself; 
-- for consistency, make continuous mapping of eSenses to constantSynts in all islets (they need to fit the rest of the soundscape)
-- think about implementing the shamanic method (synchronisation)
+- clean synths file;
+- check sequencer and nf again and send to Fredrik (help: mastering = compressors? )
+- make reset load at the beginning of each island (~loadFile.value(track:{all},filename:0); )
+- make each islet sound good (loops, rewards, victor sound) - try to use as many reward types as possible;
+  - think about implementing the shamanic method (synchronisation) in islet1 and islet2 (maybe they could use the same beat per second - or would that require me to fasten up one tempo clock and keep it low density for the melody?)
+- clean code;
+- if max counter is above the current save max, than start counting: update gui as well;
+- send to Fredrik;
+- connect to Neurosky (maybe both?;
+
+## later:
 - check scale arrays in generate.scd
-- think about how attention/meditation should work together;
+- clean code;
+- make new CMW videos;
 
 ## NOTE
 - tracks start from 0, not 1 (need to be consistent when talking, naming, commenting, etc; )

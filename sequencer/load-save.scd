@@ -1,7 +1,7 @@
 ~memory = Array.fill2D(~beat, 4, 0); //global memory;
 
 (
-~saveFile = { |track, filename|
+~saveFile = {|track,filename|
 	//var space = [(0 ! 16)]++[[0]];  //make space with beatSizer
 	var space = (0 ! 4) ! ~beat;
 	("save" + track + "track").postln;
@@ -13,7 +13,7 @@
 //~saveFile.value(0, 122);
 
 (
-~loadFile = { |track, filename|
+~loadFile = {|track,filename|
 	var space = (0 ! 4) ! ~beat;
 	space = Object.readArchive((~pathname ++ filename.asString).standardizePath);
 	~beat.do{ |i|

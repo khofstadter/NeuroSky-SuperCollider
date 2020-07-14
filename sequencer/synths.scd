@@ -4,7 +4,7 @@ CmdPeriod.doOnce({~grp0.free; ~grp1.free});
 
 
 ~synthList = [\test, \synht1, \windpad, \saw, \bells, \simpleFM, \FM1, \FM2, \FM3, \FM4, \bells2, \nice1, \nice2, \nice3, \ring1, \newFM1, \newFM2, \newFM3, \newFM4, \laserbeam, \moogbasstone, \moogbasstone2, \mrostinato, \plastickystrings, \bassfoundationandhighend, \windX, \sample, \popsynth, \sine];
-~synthList2 = [\constantsine, \constantsynht1, \constantwindpad, \constantsaw, \constantbells, \constantsimpleFM, ];
+~synthList2 = [\constantSynh, \constantSaw];
 
 //~synthList
 //test
@@ -72,17 +72,13 @@ SynthDef(~synthList[4], {|change0=0, change1=0, out, freq=37, ringt=0.9, pan, am
 }).add;
 
 //simpleFM
-SynthDef(~synthList[5], { |change0=0, change1=1, out, freq=37, pan=0.5, amp=0.0, master=0.0, sustain=0.25|
-	//var snd = SinOsc.ar(freq.midicps, mul: 1000, add: 0); //change mul and add for extra
-	var snd = SinOsc.ar(freq.midicps, mul: 500, add: 0);
+SynthDef(~synthList[5],{|freq,sustain,pan,amp=0,master=0,out|
+	var snd = SinOsc.ar(freq.midicps, mul:500);
 	snd = SinOsc.ar(snd*sustain/2);
-	snd = snd * EnvGen.ar(Env.perc(0.01, sustain, 1, -4), doneAction:2);
-	snd = Pan2.ar(snd, FSinOsc.kr(0.5));
-	//snd = Pan2.ar(snd, 0);
-	//snd = MidEQ.ar(snd, 120, 0.9, 9);
-	//snd = MidEQ.ar(snd, 7000, 0.9, 3);
-	//snd = HPF.ar(snd, 50);
-	Out.ar(out, snd*amp*master);
+	snd = snd*EnvGen.ar(Env.perc(0.01,sustain,1,-4),doneAction:2);
+	snd = Pan2.ar(snd,FSinOsc.kr(0.2));
+	snd = LPF.ar(snd,17000);
+	Out.ar(out,snd*amp*master);
 }).add;
 
 //FM1
@@ -266,27 +262,6 @@ SynthDef(~synthList[17], { |change0=0, change1=0, out, freq=45, carPartial = 0.5
 	snd = LPF.ar(snd, 15000);
 	Out.ar(out, snd*amp*master/6);
 }).add;
-/*
-// newFM3
-SynthDef(~synthList[17], { |out, freq=240, carPartial = 0.5, modPartial = 0.5, index = 10, pan = 0, amp=0.0, master=0.0, sustain=0.25|
-var mod, snd;
-// index values usually are between 0 and 24
-// carPartial :: modPartial => car/mod ratio
-mod = SinOsc.ar(
-freq.midicps * modPartial * (Saw.kr(amp)/(sustain*2)*1000),
-0,
-freq.midicps * index * LFNoise1.kr(10.reciprocal).abs);
-
-snd = Mix.new(
-Array.fill(5, { |i|
-SinOsc.ar((freq.midicps * carPartial+(i/2)) + mod*(i))
-;}));
-snd = snd * EnvGen.ar(Env.perc(0.02, sustain, 1, 4), doneAction:2);
-snd = Pan2.ar(snd, FSinOsc.kr(pan));
-snd = HPF.ar(snd, 200);
-snd = LPF.ar(snd, 15000);
-Out.ar(out, snd*amp*master/6);
-}).add;*/
 
 // newFM4
 // use for ~constantSynth with attention (0.0 - 1.0)
@@ -437,91 +412,49 @@ SynthDef(~synthList[28], {|change0=0, change1=1, out, freq=37, panfreq=1, amp=0.
 //________________________________________________________________________________________________
 
 //~synthList2
-// only test mode:
-
-//~synthList
-// constansine
-SynthDef(~synthList2[0], {|change0=0, change1=1, out, freq=37, panfreq=1, amp=0.0, master=0.0, sustain=0.25|
-	var move = SinOsc.kr(panfreq*change1.linlin(0,1,10,1));
-	//var snd = SinOsc.ar(freq.midicps);
-	var snd = SinOsc.ar(freq.midicps*change0.linlin(0,1,1,2));
-	snd = LPF.ar(snd, 15000);
-	snd = Pan2.ar(snd, move);
-	Out.ar(out, snd*amp*master);
-}).add;
 
 // constansynth1
-SynthDef(~synthList2[1], {|change0=0, change1=0, out, freq=35, pan=5, amp=0.0, master=0.0, sustain=0.25|
-	var snd = RLPF.ar(
-		Array.fill(2, { Saw.ar([freq.midicps+rrand(0,3),freq.midicps+rrand(0,3),])}),
-		change0.linlin(0,1,100,300), 0.1, 1);
+SynthDef(~synthList2[0],{|freq=35,amp=0,master=0,out,change0=0,change1=0|
+var snd = RLPF.ar(
+		Array.fill(4,{
+			Saw.ar([
+				freq.midicps,
+				freq.midicps+1,
+				freq.midicps+2,
+				freq.midicps+3
+		])}),
+		change0.linlin(0,1,100,150));
 	snd = HPF.ar(snd, 70);
-	snd = LPF.ar(snd, 17000);
-	snd = Pan2.ar(snd, SinOsc.kr(change1.linlin(0,1,3,0.5)));
-	Out.ar(out, snd*amp*master);
+	snd = LPF.ar(snd, 16000);
+	snd = Pan2.ar(snd, SinOsc.kr(change1.linlin(0,1,0.3,0.01)));
+	snd = FreeVerb.ar(snd, 0.4, 0.1, 0.5, 1, 0);
+	Out.ar(out, snd*amp*master/2);
 }).add;
-
-
-// constanwindpad
-SynthDef(~synthList2[2], { |change0=0, change1=0, out, freq=37, pan, amp=0.0, master=0.0, sustain=0.25|
-	var freqs, ringtimes, snd;
-	freqs = Control.names([\freqs.midicps]).kr([1, 1, 1, 1]); //?
-	ringtimes = Control.names([\ringtimes]).kr([1, 1, 1, 1]);
-	snd = DynKlank.ar(`[freqs*change0.linlin(0,1,1,7), nil, ringtimes*change1.linlin(0,1,1,2) ], {ClipNoise.ar(0.003)}.dup, freq);
-	snd = Pan2.ar(snd, SinOsc.kr(change1.linlin(0,1,2,0.01)));
-	snd = HPF.ar(snd, 50);
-	snd = LPF.ar(snd, 5000*change0.linlin(0,1,0.1,1));
-	Out.ar(out, snd*amp*master);
-}).add;
-
 
 // constansaw
-SynthDef(~synthList2[3], { |change0=0, change1=0, out, freq=37, pan, amp=0.0, master=0.0, sustain=0.25, ringt=0.01|
-	var snd = VarSaw.ar((freq+(change0.linlin(0,1,0.01,2))).midicps, 0, LFTri.kr(change1.linexp(0,1,0.1,0.55),0.5,0.4,change1.linlin(0,1,0.1,0.2)));
+SynthDef(~synthList2[1],{|freq=37,ringt=0.5,pan,amp=0,master=0,out,change0,change1|
+	var snd = VarSaw.ar(
+		freq:freq.midicps*change1.linlin(0,1,0.027,0.024),
+		width:LFTri.kr(
+			freq:change1.linlin(0,1,freq.midicps,freq.midicps+12),
+			iphase:0,
+			mul:0,
+			add:0.1)
+	);
 	var dynfreqs = [freq.midicps, (freq+12).midicps, (freq+24).midicps];
-	var ringtimes = [ringt, ringt, ringt]; //could by changed by eeg
+	var ringtimes = [ringt,ringt,ringt]; //could by changed by eeg
 	snd = Klank.ar(`[dynfreqs, nil, ringtimes], snd);
-	snd = Pan2.ar(snd, SinOsc.kr(change1.linlin(0,1,2,0.03)));
-	snd = LPF.ar(snd, change0.linlin(0,1,1000,17000));
-	snd = HPF.ar(snd, change1.linlin(0,1,1000,50));
-	//	snd = MidEQ.ar(snd, change0.linlin(0,1,freq.midicps*5,freq.midicps*5), 0.4, 3);
-	snd = HPF.ar(snd, 60);
-	snd = FreeVerb.ar(snd, 0.33, 0.3, 0.5, 1, 0);
-	Out.ar(out, snd*amp*master);
-}).add;
-
-
-
-//constanbells
-SynthDef(~synthList2[4], {|change0=0, change1=0, out, freq=37, ringt=0.9, pan, amp=0.0, master=0.0, sustain=0.25|
-	var snd = Saw.ar(freq.midicps, mul: 0.05);
-	var dynfreqs = [freq.midicps, freq.midicps, freq.midicps];
-	var ringtimes = [ringt, ringt, ringt]; //could by changed by eeg
-	snd = Klank.ar(`[dynfreqs, nil, ringtimes], snd);
-	snd = MidEQ.ar(snd, 7000, 0.9, 9);
-	snd = HPF.ar(snd, 100);
-	snd = LPF.ar(snd, 17000);
-	snd = Pan2.ar(snd, SinOsc.kr(change1.linlin(0,1,2,0.05)));
-	Out.ar(out, snd*amp*master/8);
-}).add;
-
-//constansimpleFM
-SynthDef(~synthList2[5], { |change0=0, change1=1, out, freq=37, pan=2, amp=0.0, master=0.0, sustain=0.25|
-	var snd = SinOsc.ar(freq.midicps*SinOsc.kr(change0.linlin(0,1,1,20)), mul: change0.linlin(0,1,0,300), add: change0.linlin(0,1,0,100)); //change mul and add for extra
-	//var snd = SinOsc.kr(freq.midicps, mul: 500, add: 0);
-	snd = SinOsc.ar(snd);
-	snd = Pan2.ar(snd, SinOsc.kr(change1.linlin(0,1,0.3,0.05)));
-	snd = MidEQ.ar(snd, 120, 0.9, 9);
-	snd = MidEQ.ar(snd, 7000, 0.9, 3);
-	snd = HPF.ar(snd, 100);
-	Out.ar(out, snd*amp*master);
+	snd = Pan2.ar(snd, SinOsc.kr(change1.linlin(0,1,0.6,0.01)));
+	snd = HPF.ar(snd,70);
+	snd = LPF.ar(snd,change0.linexp(0,1,17000,300));
+	snd = FreeVerb.ar(snd, 0.73, 0.7, 0.5, 1, 0);
+	Out.ar(out,snd*amp*master);
 }).add;
 
 
 //compressor
-
 SynthDef(\compressor, {
-	var in,compressed, snd;
+	var in,compressed,snd;
 	in = In.ar(0,2);
 	snd = Compander.ar(in, in, 0.1, 1, 1/3, 0.01, 0.01);
 	ReplaceOut.ar(0, snd);

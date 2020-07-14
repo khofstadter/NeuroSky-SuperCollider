@@ -1,63 +1,109 @@
-i[2][0] = Routine {
-	~makeTempoClock.value(1,16);
-	~presentIslet = 2;
-	"presentIslet 2".postln;
+i[2][0]=Routine {
+	~makeTempoClock.value(1,32);
+	~tempo=[0.7,10!~beat];
+	~presentIslet=2;
+	("islet:"++~presentIslet).postln;
 
-	//nf thresholds
-	~aThVal = 50;
-	~mThVal = 50;
-	~aTimeThVal = 10;
-	~mTimeThVal = 10;
-	~toMoveVal = [ [ 0, 4, 0, 0 ], [ 0, 2, 0, 0 ] ];
+	//NF thresholds
+	~aThVal=75;
+	~mThVal=75;
+	~aTimeThVal=10;
+	~mTimeThVal=10;
+	~toMoveVal=[[0,5,2,0],[0,2,2,0]];
 
-	// tracks on/off
-	// ~playTask for ~sched: synths scheduled with tempoClock (t)
-	~onOff = 0 ! 16; //turn all off
+	~usedTasks[0]=~rewCalcTask.value(
+		~aTimeThVal,~mTimeThVal,~toMoveVal).start;
 
-	// SYNTHS for Sched Loop and Elastic Loops and ElasticOnce
-	~synth[0] = \sine;
-	~synth[1] = \FM3;
-	~synth[2] = \simpleFM;
-	~synth[3] = \nice1;
+	//tracks scheduled with tempoClock
+	~onOff=0 ! 16; //turn all off
+	m=(0.0 ! 10); //master volume in SynthDefs
 
-	//VOLUME
-	//Adjust tracks volume individuly (arg master in synths)
-	m = (0.0 ! 10); //m: master volume in SynthDefs
-	m[0] = 0.1;
-	m[1] = 0.1;
-	m[2] = 0.4;
-	m[3] = 0.5;
+	//track 0
+	t.schedAbs(~beat*2,{~onOff[0]=1;});
+~synth[0]=\newFM1;
+	m[0]=0.1;
+	~loadFile.value(track:0,filename:400);
 
-	//LOAD BARS
-	~loadFile.value(2, 220); //value: track, filename
-	~loadFile.value(3, 220); //value: track, filename (MELODY eloop)
-	~schedElasticLoopPlay[0] = ~schedElasticLoop.value(2).play;
-	~schedElasticLoopPlay[1] = ~schedElasticLoop.value(3).play;
+	//track 1
+	t.schedAbs(~beat*2,{~onOff[1]=1;});
+	~synth[1]=\simpleFM;
+	m[1]=0.15;
+	~loadFile.value(track:1,filename:410);
+	~usedTasks[1]=~rewTask.value(
+		track:1,idx0:1,idx1:0,
+		style:0,fromBeat:0,loadFile0:411,loadFile1:410).start;
+
+
+	//track 2
+	t.schedAbs(~beat*4,{~onOff[2]=1;});
+	~synth[2]=\saw;
+	m[2]=0.0;
+	~loadFile.value(track:2,filename:420);
+		~usedTasks[2]=~rewTask.value(
+	track:2,idx0:1,idx1:0,
+		style:0,fromBeat:0,loadFile0:421,loadFile1:420).start;
+
+	//track 3
+	t.schedAbs(~beat*4,{~onOff[3]=1;});
+	~synth[3]=\FM3;
+	m[3]=0.1;
+	~loadFile.value(track:3,filename:430);
+	~usedTasks[3]=~rewTask.value(
+		track:3,idx0:0,idx1:1,
+		style:0,fromBeat:0,loadFile0:0,loadFile1:430,loadFile2:431,
+		loadFile3:432,loadFile4:433).start;
+
+	//track 4
+	t.schedAbs(~beat*3,{~onOff[4]=1});
+	~synth[4]=\sample;
+	~trackSample[4]=Buffer.readChannel(
+		s,~pathname++"-samples/Kick 07.aif");
+	m[4]=0.15;
+	~loadFile.value(track:4,filename:440);
+	~usedTasks[4]=~rewTask.value(
+		track:4,idx0:1,idx1:0,
+		style:0,fromBeat:0,loadFile0:441,loadFile1:440).start;
+
+	//track 5
+	t.schedAbs(~beat*4,{~onOff[5]=1});
+	~synth[5]=\sample;
+	~trackSample[5]=Buffer.readChannel(
+		s,~pathname++"-samples/hihat17.wav");
+	m[5]=0.1;
+	~loadFile.value(track:5,filename:450);
+	~usedTasks[5]=~rewTask.value(
+		track:5,idx0:1,idx1:0,
+		style:0,fromBeat:0,loadFile0:450,loadFile1:451).start;
+
+	//track 6
+	t.schedAbs(~beat*5,{~onOff[6]=1});
+	~synth[6]=\sample;
+	~trackSample[6]=Buffer.readChannel(
+		s,~pathname++"-samples/BL_Snare07.wav");
+	m[6]=0.05;
+	~loadFile.value(track:6,filename:461);
+	~usedTasks[6]=~rewTask.value(
+		track:6,idx0:1,idx1:0,
+		style:0,fromBeat:0,loadFile0:461,loadFile1:460).start;
+
+	//track 9 (victory sound)
+	//scheduled in reward.scd
+	~synth[9]= \sine;
+	m[9]= 0.1;
+	~loadFile.value(track:9,filename:440); //value: track, filename
 
 	//TODO: enable eSenses
-
-	1.wait;
-	~usedTasks[0] = ~rewCalcTask.value(~aTimeThVal,~mTimeThVal,~toMoveVal).start;
-
-	~usedTasks[1] = ~rewTask.value(0,0,0,1,0, 200, 1).start;
-	~usedTasks[2] = ~rewTask.value(1,1,0,1,0, 210, 1).start;
 
 	1.wait;
 	~guiTask.start(AppClock);
 };
 
-
-i[2][1] = Routine {
-	"Finish islet 2".postln;
-	"move sliders back to 0".postln; //TODO
-	"victory sound".postln; //TODO
+i[2][1]=Routine {
+	("exit islet:"++~presentIslet).postln;
 	//TODO: disable eSenses
-	// kill rewCalc and rewTasks:
-	~quitUsedTasks.value;
-	// stop TempoClock and move to next location(islet)
-	4.wait;
+	//TODO: move sliders back to 0".postln
+	~quitUsedTasks.value;//remove rewCalc & rewTasks
+	4.wait;//safety delay
 	t.stop;
-	~schedElasticLoopPlay[0].stop;
-	~schedElasticLoopPlay[1].stop;
-	i[~selectIslet][0].reset.play; //enter a new islet (here specified)
+	i[~selectIslet][0].reset.play; //selected islet
 };

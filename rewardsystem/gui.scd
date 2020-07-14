@@ -48,7 +48,7 @@ neuroskyButton= Button(w, Rect(20, 10, 30, 20))
 //select islet
 StaticText(w, Rect(20, 70, 200, 20)).string_("Soundscape");
 selectIsletButton = PopUpMenu(w, Rect(100, 70, 60, 20));
-selectIsletButton.items = ["sea", "islet1", "islet2", "islet3"];
+selectIsletButton.items = ["islet0-abstract", "islet1-ambient", "islet2-EDM"];
 selectIsletButton.background_(Color.green(0.7));  // only changes the look of displayed
 selectIsletButton.action = { arg menu;
 	[menu.value, menu.item].postln;
