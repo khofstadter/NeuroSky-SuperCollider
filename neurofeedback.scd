@@ -11,10 +11,10 @@ s.waitForBoot {
 	(~pathway++"/sequencer/streams-midi.scd").load;
 	(~pathway++"/sequencer/generate.scd").load;
 	(~pathway++"/sequencer/load-save.scd").load;
-	(~pathway++"/rewardsystem/ns-parser.scd".asString).load;
-	(~pathway++"/rewardsystem/levels.scd".asString).load;
-	(~pathway++"/rewardsystem/island01/i-load.scd".asString).load;
-	(~pathway++"/rewardsystem/rewards.scd".asString).load;
+	(~pathway++"/neurofeedback/ns-parser.scd".asString).load;
+	(~pathway++"/neurofeedback/levels.scd".asString).load;
+	(~pathway++"/neurofeedback/island01/i-load.scd".asString).load;
+	(~pathway++"/neurofeedback/rewards.scd".asString).load;
 	(~pathway++"/sequencer/synths.scd").load;
 	(~pathway++"/sequencer/tempoClock.scd").load;
 	2.wait;
@@ -22,7 +22,7 @@ s.waitForBoot {
 		~main= Synth(\main, [], ~grp, \addAfter);
 		~compressor= Synth(\compressor);
 		~autoMove=0;
-		(~pathway++"/rewardsystem/gui.scd".asString).load;
+		(~pathway++"/neurofeedback/gui.scd".asString).load;
 		i[0][0].reset.play;
 	);
 };

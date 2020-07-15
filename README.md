@@ -32,7 +32,6 @@ Two parts:
 
 ## TODO
 - make constantSynts loader in synthDef, and quieter in islets; 
-- send to Fredrik for sound feedback;
 - test with NeuroSky (3 islets)
 - make videos (nf and sequencer)
 - make reset load at the beginning of each island (~loadFile.value(track:{all},filename:0); )

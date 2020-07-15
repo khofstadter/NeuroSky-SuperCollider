@@ -19,22 +19,22 @@ i[2][0]=Routine {
 	m=(0.0 ! 10); //master volume in SynthDefs
 
 	//track 0
-	t.schedAbs(~beat*2,{~onOff[0]=1;});
+	t.schedAbs(~beat*2,{~onOff[0]=1;});//delayed
 ~synth[0]=\FM0;
 	m[0]=0.04;
 	~loadFile.value(track:0,filename:400);
 
 	//track 1
-	t.schedAbs(~beat*2,{~onOff[1]=1;});
+	t.schedAbs(~beat*2,{~onOff[1]=1;});//delayed
 	~synth[1]=\bells2;
-	m[1]=0.2;
+	m[1]=0.15;
 	~loadFile.value(track:1,filename:410);
 	~usedTasks[1]=~rewTask.value(
 		track:1,idx0:1,idx1:0,
 		style:0,fromBeat:0,loadFile0:411,loadFile1:410).start;
 
 	//track 2
-	t.schedAbs(~beat*4,{~onOff[2]=1;});
+	t.schedAbs(~beat*4,{~onOff[2]=1;});//delayed
 	~synth[2]=\FM0;
 	m[2]=0.1;
 	~loadFile.value(track:2,filename:420);

@@ -316,7 +316,7 @@ var snd=RLPF.ar(
 	snd=LPF.ar(snd,16000);
 	snd=Pan2.ar(snd,SinOsc.kr(change1.linlin(0,1,0.3,0.01)));
 	snd=FreeVerb.ar(snd,0.4,0.1,0.5,1,0);
-	Out.ar(out,snd*amp*master/2);
+	Out.ar(out,snd*amp*master*4);
 }).add;
 
 //constantSaw2
@@ -327,7 +327,7 @@ SynthDef(~synthList2[1],{|freq=37,ringt=0.5,pan,amp=0,master=0,out,change0,chang
 			freq:change1.linlin(0,1,freq.midicps,freq.midicps+12),
 			iphase:0,
 			mul:0,
-			add:0.1)
+			add:0.5)
 	);
 	var dynfreqs=[freq.midicps,(freq+12).midicps,(freq+24).midicps];
 	var ringtimes=[ringt,ringt,ringt];//couldbychangedbyeeg
@@ -336,7 +336,7 @@ SynthDef(~synthList2[1],{|freq=37,ringt=0.5,pan,amp=0,master=0,out,change0,chang
 	snd=HPF.ar(snd,70);
 	snd=LPF.ar(snd,change0.linexp(0,1,17000,300));
 	snd=FreeVerb.ar(snd,0.73,0.7,0.5,1,0);
-	Out.ar(out,snd*amp*master);
+	Out.ar(out,snd*amp*master*4);
 }).add;
 
 //## mastering
@@ -348,7 +348,6 @@ SynthDef(\compressor,{
 	snd=Compander.ar(in,in,0.1,1,1/3,0.01,0.01);
 	ReplaceOut.ar(0,snd);
 }).add;
-
 
 //main
 SynthDef(\main,{|out=0,master=1|
