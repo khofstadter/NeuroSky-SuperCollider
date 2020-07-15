@@ -20,24 +20,23 @@ i[2][0]=Routine {
 
 	//track 0
 	t.schedAbs(~beat*2,{~onOff[0]=1;});
-~synth[0]=\newFM1;
-	m[0]=0.1;
+~synth[0]=\FM0;
+	m[0]=0.04;
 	~loadFile.value(track:0,filename:400);
 
 	//track 1
 	t.schedAbs(~beat*2,{~onOff[1]=1;});
-	~synth[1]=\simpleFM;
-	m[1]=0.15;
+	~synth[1]=\bells2;
+	m[1]=0.2;
 	~loadFile.value(track:1,filename:410);
 	~usedTasks[1]=~rewTask.value(
 		track:1,idx0:1,idx1:0,
 		style:0,fromBeat:0,loadFile0:411,loadFile1:410).start;
 
-
 	//track 2
 	t.schedAbs(~beat*4,{~onOff[2]=1;});
-	~synth[2]=\saw;
-	m[2]=0.0;
+	~synth[2]=\FM0;
+	m[2]=0.1;
 	~loadFile.value(track:2,filename:420);
 		~usedTasks[2]=~rewTask.value(
 	track:2,idx0:1,idx1:0,

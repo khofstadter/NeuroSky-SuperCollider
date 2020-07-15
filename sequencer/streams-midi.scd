@@ -8,8 +8,8 @@ TODO
 */
 
 //pattern for all tracks with pitch, amp, envelope and duration
-~beat= 32; //4-256
-~size= 12; //nb. of instruments/tracks
+~beat = 32; //4-256
+~size = 12; //nb. of instruments/tracks
 p = Array.fill3D(~size, ~beat, 4, 0);
 ~memL = [p.deepCopy,p.deepCopy,p.deepCopy,p.deepCopy];
 ~memory = Array.fill2D(~beat, 4, 0); //global memory;
@@ -24,7 +24,6 @@ m = (0.0 ! ~size); //m: master volume in SynthDefs (instrument/track volume)
 ~constantSynth = nil ! 4; //var to make constantSynths (no envelope)
 ~schedElasticLoopPlay = 0 ! ~size; //
 ~midiOrVal = 0 ! ~size;
-
 
 (
 ~midiOutFunction = ({ arg track = 0;
@@ -285,6 +284,5 @@ m = (0.0 ! ~size); //m: master volume in SynthDefs (instrument/track volume)
 				fade.value(0,vol,time);
 				x = changing.start;
 			};
-	);}; //end of Task
+	);};//end of Task
 };//end of ~fadePads
-

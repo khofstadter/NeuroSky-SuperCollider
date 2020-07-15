@@ -1,8 +1,8 @@
 //to be used for pitch, amp, sustain, and duration
 //as scales are used ~data[0] is not used later in Function ~write
-~data = [(0..120),((0..10)/10),(0.01..5),((0..10)/10)];
+~data=[(0..120),((0..10)/10),(0.01..5),((0..10)/10)];
 
-~scales = 0 ! 22;
+~scales=0 ! 22;
 //biYu
 ~scales[0]=[24,27,31,34,36,39,43,46,48,51,55,58,60,63,67,70,72,75,79,82,84,87,91,94,96,99,103,106,108,111,115,118];
 //blues
@@ -46,124 +46,123 @@
 ~scales[20]=[72,74,76,79,81,84];
 ~scales[21]=[72,75,79,82,84,87,91,94,96];
 
+
 // write staight into instrument track
-~write = { |track, gap, scaleNb|
-var made = (0 ! 4) ! ~beat;
+~write={ |track, gap, scaleNb|
+var made=(0 ! 4) ! ~beat;
 	~beat.do{ |i|
 		var pick;
-		pick = ~scales[scaleNb][rrand(0, ~scales[scaleNb].size+gap)]; //
-		made[i][0] = pick;
-		pick = ~data[1][rrand(0, ~data[1].size+gap)]; //
-		made[i][1] = pick;
-		pick = ~data[2][rrand(0, ~data[2].size)]; //
-		made[i][2] = pick;
-		pick = ~data[3][rrand(0, ~data[3].size)]; //
-		made[i][3] = pick;
+		pick=~scales[scaleNb][rrand(0, ~scales[scaleNb].size+gap)];
+		made[i][0]=pick;
+		pick=~data[1][rrand(0, ~data[1].size+gap)];
+		made[i][1]=pick;
+		pick=~data[2][rrand(0, ~data[2].size)];
+		made[i][2]=pick;
+		pick=~data[3][rrand(0, ~data[3].size)];
+		made[i][3]=pick;
 		};
 		//made.postln;
-		p[track] = made;
+		p[track]=made;
 };
 
 // write staight into instrument track
-~write2 = { |track, gap, scaleNb|
-var made = (0 ! 4) ! ~beat;
+~write2={ |track, gap, scaleNb|
+var made=(0 ! 4) ! ~beat;
 	~beat.do{ |i|
 		var pick;
-		pick = ~scales[scaleNb][rrand(0, ~scales[scaleNb].size+gap)]; //
-		made[i][0] = pick;
-		pick = ~data[1][rrand(0, ~data[1].size)]; //
-		made[i][1] = pick;
-		pick = ~data[2][rrand(0, ~data[2].size)]; //
-		made[i][2] = pick;
-		/*pick = ~data[3][rrand(0, ~data[3].size)]; //
-		made[i][3] = pick;*/
+		pick=~scales[scaleNb][rrand(0, ~scales[scaleNb].size+gap)];
+		made[i][0]=pick;
+		pick=~data[1][rrand(0, ~data[1].size)];
+		made[i][1]=pick;
+		pick=~data[2][rrand(0, ~data[2].size)];
+		made[i][2]=pick;
+		/*pick=~data[3][rrand(0, ~data[3].size)];
+		made[i][3]=pick;*/
 		};
 		//made.postln;
-		p[track] = made;
+		p[track]=made;
 };
 
 // write staight into instrument track
-~write3 = { |track|
-var made = (0 ! 4) ! ~beat;
+~write3={ |track|
+var made=(0 ! 4) ! ~beat;
 	~beat.do{ |i|
 		var pick;
-		made[i][0] = 60;
-		made[i][1] = 0.5;
-		made[i][2] = 2;
+		made[i][0]=60;
+		made[i][1]=0.5;
+		made[i][2]=2;
 		};
 		//made.postln;
-		p[track] = made;
+		p[track]=made;
 };
 
+//~write.value(1, 10, 10); //.(track, empty notes (randomness, the higher the nb the more gaps), scale nb)
 
-// example of its use
-//values: track; empty notes (randomness, the higher the nb the more gaps), scale nb
-//~write.value(1, 10, 10);
 
-~pitchDown = { |track|
-	a = nil ! ~beat; //1 dimensional array for pitch
-	b = nil ! ~beat; //1 dimensional array for pitch
+~pitchDown={ |track|
+	a=nil ! ~beat; //1 dimensional array for pitch
+	b=nil ! ~beat; //1 dimensional array for pitch
 	~beat.do{ |i|
-		a[i] = p[track][i][0]; //collect pitch from p;
+		a[i]=p[track][i][0]; //collect pitch from p;
 	};
-	a.postln;
+	//a.postln;
 
 	~scales[~scaleNb].size.do{ |i|
 		~beat.do{ |x|
 			if (a[x] == ~scales[~scaleNb][i], {b[x]=~scales[~scaleNb][i-1]}); //-1;
 		};
 	};
-	b.postln;
+	//b.postln;
 
 	~beat.do{ |i|
-		p[track][i][0] = b[i];
+		p[track][i][0]=b[i];
 	};
-	p[track].postln;
+	//p[track].postln;
 
 };
 
-~pitchUp = { |track|
-	a = nil ! ~beat; //1 dimensional array for pitch
-	b = nil ! ~beat; //1 dimensional array for pitch
+
+~pitchUp={ |track|
+	a=nil ! ~beat; //1 dimensional array for pitch
+	b=nil ! ~beat; //1 dimensional array for pitch
 	~beat.do{ |i|
-		a[i] = p[track][i][0]; //collect pitch from p;
+		a[i]=p[track][i][0]; //collect pitch from p;
 	};
-	a.postln;
+	//a.postln;
 
 	~scales[~scaleNb].size.do{ |i|
 		~beat.do{ |x|
 			if (a[x] == ~scales[~scaleNb][i], {b[x]=~scales[~scaleNb][i+1]}); //-1;
 		};
 	};
-	b.postln;
+	//b.postln;
 
 	~beat.do{ |i|
-		p[track][i][0] = b[i];
+		p[track][i][0]=b[i];
 	};
 
-	p[track].postln;
+	//p[track].postln;
 
 };
 
 // ~pitchUp.value(0);
 // ~pitchDown.value(0);
 
-~writeMonotone = { |track, freq=4|
-var made = (0 ! 4) ! ~beat;
-var help = [[60,0],[0.7,0],[3,0]];
+
+~writeMonotone={ |track, freq=4|
+var made=(0 ! 4) ! ~beat;
+var help=[[60,0],[0.7,0],[3,0]];
 	~beat.do{ |i|
 		var pick;
-			pick = help[0][i%freq];
-		made[i][0] = pick;
-			pick = help[1][i%freq];
-		made[i][1] = pick;
-				pick = help[2][i%freq];
-		made[i][2] = pick;
+			pick=help[0][i%freq];
+		made[i][0]=pick;
+			pick=help[1][i%freq];
+		made[i][1]=pick;
+				pick=help[2][i%freq];
+		made[i][2]=pick;
 		};
 		//made.postln;
-		p[track] = made;
+		p[track]=made;
 };
 
 //~writeMonotone.value(0,4);
-
-

@@ -14,6 +14,7 @@ Two parts:
 
 ## log
 * 0.1.8
+  - organise synths;
   - made arguments clearer in functions after .value (added UX)
   - panning Ugen parameters are slightly different in each constantSynth.  they are can be controlled by the eSenses.  one side of the Pan is the same, so when 2 synths are mapped to different eSenses (the higher a value the more in phase the sounds are, the lower, the less in phase)
   - victory sound on track 9 (each islet the same)
@@ -30,15 +31,13 @@ Two parts:
 * 0.1.3.7 (2016-06-05)
 
 ## TODO
-- clean synths file;
-- check sequencer and nf again and send to Fredrik (help: mastering = compressors? )
+- make constantSynts loader in synthDef, and quieter in islets; 
+- send to Fredrik for sound feedback;
+- test with NeuroSky (3 islets)
+- make videos (nf and sequencer)
 - make reset load at the beginning of each island (~loadFile.value(track:{all},filename:0); )
 - make each islet sound good (loops, rewards, victor sound) - try to use as many reward types as possible;
-  - think about implementing the shamanic method (synchronisation) in islet1 and islet2 (maybe they could use the same beat per second - or would that require me to fasten up one tempo clock and keep it low density for the melody?)
-- clean code;
 - if max counter is above the current save max, than start counting: update gui as well;
-- send to Fredrik;
-- connect to Neurosky (maybe both?;
 
 ## later:
 - check scale arrays in generate.scd

@@ -20,30 +20,30 @@ i[0][0]=Routine {
 
 	//track 0
 	~synth[0]=\nice1;
-	m[0]=0.05;
+	m[0]=0.08;
 	~usedTasks[1]=~rewTask.value(
 		track:0,idx0:1,idx1:0,
 		style:1,fromBeat:0,
 		loadFile0:1,loadFile1:0).start;
 
 	//track 1
-	~synth[1]=\simpleFM;
-	m[1]=0.02;
+	~synth[1]=\FM0;
+	m[1]=0.2;
 	~usedTasks[2]=~rewTask.value(
 		track:1,idx0:0,idx1:0,
 		style:1,fromBeat:0,
 		loadFile0:2,loadFile1:0).start;
 
 	//constantSynth track 0
-	~synth2[0]=\constantSaw;
+	~synth2[0]=\constantSaw2;
 	~m2[0]=1;
 
 	~fadeConstantSynts.value(track:0,vol:1,time:3,
 		freqmidi:27,medOrAtt0:0,medOrAtt1:0).start;
 
 	//constantSynth track 1
-	~synth2[1]=\constantSynh;
-	~m2[1]=0.7;
+	~synth2[1]=\constantSaw1;
+	~m2[1]=0.9;
 	~fadeConstantSynts.value(track:1,vol:1,time:3,
 		freqmidi:75,medOrAtt0:1,medOrAtt1:0).start;
 

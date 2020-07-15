@@ -20,7 +20,7 @@ i[1][0]=Routine {
 
 	//track 0
 	~synth[0]=\laserbeam;
-	m[0]=0.03;
+	m[0]=0.05;
 	~schedElasticLoopPlay[0]=~schedElasticLoop.value(track:2).play;
 	~usedTasks[1]=~rewTask.value(
 		track:0,idx0:0,idx1:0,
@@ -37,7 +37,7 @@ i[1][0]=Routine {
 		loadFile0:210,loadFile1:0).start;
 
 	//track 2
-	~synth[2]=\simpleFM;
+	~synth[2]=\FM0;
 	m[2]=0.18;
 	~loadFile.value(track:2,filename:220); //value: track, filename
 
