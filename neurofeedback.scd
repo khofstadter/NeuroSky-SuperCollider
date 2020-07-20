@@ -19,8 +19,8 @@ s.waitForBoot {
 	(~pathway++"/sequencer/tempoClock.scd").load;
 	2.wait;
 	(
-		~main= Synth(\main, [], ~grp, \addAfter);
-		~compressor= Synth(\compressor);
+		~compressor= Synth(\compressor, addAction: \addToTail);
+		~main= Synth(\main, addAction: \addToTail);
 		~autoMove=0;
 		(~pathway++"/neurofeedback/gui.scd".asString).load;
 		i[0][0].reset.play;
