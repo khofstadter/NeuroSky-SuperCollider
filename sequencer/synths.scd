@@ -10,7 +10,8 @@ CmdPeriod.doOnce({~grp0.free;~grp1.free});
 (
 //sine
 SynthDef(~synthList[0],{|out,freq=37,amp=0,master=0,sustain=0.25|
-	var snd=SinOsc.ar(freq.midicps);
+	var hz=freq.midicps;
+	var snd=SinOsc.ar(hz, 0, AmpComp.kr(hz));
 	snd=snd*EnvGen.ar(Env.perc(0.01,sustain,1,-8),doneAction:2);
 	snd=LPF.ar(snd,16000);
 	snd=Pan2.ar(snd,0);
@@ -21,8 +22,9 @@ SynthDef(~synthList[0],{|out,freq=37,amp=0,master=0,sustain=0.25|
 //saw
 SynthDef(~synthList[1],{|out,freq=35,
 	amp=0,master=0,sustain=0.25|
+	var hz=freq.midicps;
 	var snd=RLPF.ar(
-		Array.fill(2,{Saw.ar([freq.midicps+rrand(0,3),freq.midicps+rrand(0,3),])}),
+		Array.fill(2,{Saw.ar([hz+rrand(0,3),hz+rrand(0,3),],AmpComp.kr(hz))}),
 		XLine.kr(12000,100,sustain+0.5),0.1,1);
 	snd=snd*EnvGen.ar(Env.perc(0.01,sustain,1,-7),doneAction:2);
 	snd=HPF.ar(snd,70);
@@ -50,7 +52,8 @@ SynthDef(~synthList[2],{|out,freq=37,pan,amp=0,master=0,sustain=0.25|
 (
 //saw2
 SynthDef(~synthList[3],{|out,freq=37,amp=0,master=0,sustain=0.25|
-	var snd=VarSaw.ar(freq.midicps,0,LFTri.kr(4,0.5,0.5,0.6));
+	var hz=freq.midicps;
+	var snd=VarSaw.ar(hz,0,LFTri.kr(4,0.5,0.5,0.6),AmpComp.kr(hz));
 	snd=snd*EnvGen.ar(Env.perc(0.01,sustain,1,-8),doneAction:2);
 	snd=Pan2.ar(snd,0);
 	snd=LPF.ar(snd,16000);
@@ -148,7 +151,8 @@ SynthDef(~synthList[9],{
 (
 //bells2
 SynthDef(~synthList[10],{|out,freq=37,amp=0,master=0,sustain=0.25|
-	var snd=Pulse.ar(freq.midicps,sustain/10,0.2);
+	var hz=freq.midicps;
+	var snd=Pulse.ar(hz,sustain/10,0.2*AmpComp.kr(hz));
 	snd=Limiter.ar(snd,0.6);
 	snd=snd*EnvGen.ar(Env.perc(0.01,sustain,1,-8),doneAction:2);
 	snd=GVerb.ar(snd,2,2);
@@ -162,9 +166,8 @@ SynthDef(~synthList[10],{|out,freq=37,amp=0,master=0,sustain=0.25|
 //nice1
 SynthDef(~synthList[11],{
 |out,freq=37,amp=0,master=0,sustain=0.25|
-	var snd=Mix.new([
-		Array.fill(2,{SinOsc.ar(freq.midicps)});
-	]);
+	var hz=freq.midicps;
+	var snd=SinOsc.ar(hz, 0, AmpComp.kr(hz));
 	snd=snd*EnvGen.ar(Env.perc(0.01,sustain,1,-4),doneAction:2);
 	snd=Pan2.ar(snd,SinOsc.kr(sustain/3));
 	snd=HPF.ar(snd,50);
@@ -175,9 +178,10 @@ SynthDef(~synthList[11],{
 (
 //nice2
 SynthDef(~synthList[12],{|out,freq=37,amp=0,master=0,sustain=0.25|
+	var hz=freq.midicps;
 	var snd=Mix.new([
-		Array.fill(4,{SinOsc.ar(freq.midicps+8.0.rand,0)});
-	]);
+		Array.fill(4,{SinOsc.ar(hz+8.0.rand)});
+	])*AmpComp.kr(hz);
 	snd=snd*EnvGen.ar(Env.perc(0.03,sustain,1,-1),doneAction:2);
 	snd=Pan2.ar(snd,FSinOsc.kr(4));
 	snd=MantissaMask.ar(snd,2);
@@ -266,8 +270,9 @@ SynthDef(~synthList[16],{|out,freq=50,carPartial=0.4,modPartial=0.95,index=2,amp
 (
 //laserbeamfromstealthisosund
 SynthDef(~synthList[17],{|out,freq=440,attackTime=0.01,amp=0,master=0,sustain=0.25|
+	var hz=freq.midicps;
 	var freqenv=EnvGen.ar(Env([6,0.5,1,1],[attackTime,0.01,0.5]));
-	var osc1=LFTri.ar(freq.midicps*freqenv);
+	var osc1=LFTri.ar(hz*freqenv,0,AmpComp.kr(hz));
 	var ampenv=EnvGen.ar(Env.perc(0.02,sustain,1,4),doneAction:2);
 	var snd=osc1*ampenv;
 	snd=Pan2.ar(snd,FSinOsc.kr(0.3));
@@ -303,14 +308,15 @@ SynthDef(~synthList[19],{|out,freq,buf,amp=0.5,master=0.0,sustain=0.25|
 
 //constantSaw1
 SynthDef(~synthList2[0],{|freq=35,amp=0,master=0,out,change0=0,change1=0|
-var snd=RLPF.ar(
+	var hz=freq.midicps;
+	var snd=RLPF.ar(
 		Array.fill(4,{
 			Saw.ar([
-				freq.midicps,
-				freq.midicps+1,
-				freq.midicps+2,
-				freq.midicps+3
-		])}),
+				hz,
+				hz+1,
+				hz+2,
+				hz+3
+		])})*AmpComp.kr(hz),
 		change0.linlin(0,1,100,150));
 	snd=HPF.ar(snd,70);
 	snd=LPF.ar(snd,16000);
