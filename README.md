@@ -4,16 +4,16 @@ Neurofeedback with NeuroSky and SuperCollider. An audio neurogame.
 
 Two parts:
 
-1. focus-neurofeedback:
+1. focus-neurofeedback
+2. focus-sequencer
 
-![screenshot](screenshot-focus-nf.jpg?raw=true "focus-nf")
+![screenshot](screenshot-focus-interface?raw=true "focus-nf")
 
-2. focus-sequencer:
-
-![screenshot](screenshot-focus-seq.jpg?raw=true "focus-sequencer")
+'eeg-devices/neurosky' folder contains documents and mac driver for NeuroSky.
 
 ## log
 * 0.1.8
+  - NeuroSky docs and driver added to extra folders;
   - organise synths;
   - made arguments clearer in functions after .value (added UX)
   - panning Ugen parameters are slightly different in each constantSynth.  they are can be controlled by the eSenses.  one side of the Pan is the same, so when 2 synths are mapped to different eSenses (the higher a value the more in phase the sounds are, the lower, the less in phase)
@@ -31,12 +31,12 @@ Two parts:
 * 0.1.3.7 (2016-06-05)
 
 ## TODO
-- make constantSynts loader in synthDef, and quieter in islets; 
-- test with NeuroSky (3 islets)
+- waiting for Fredrik's feedback;
+- manual GUI update of TTH - possible?
 - make videos (nf and sequencer)
-- make reset load at the beginning of each island (~loadFile.value(track:{all},filename:0); )
+- make reset load at the beginning of each island (~loadFile.value(track:{all},filename:0);)
 - make each islet sound good (loops, rewards, victor sound) - try to use as many reward types as possible;
-- if max counter is above the current save max, than start counting: update gui as well;
+- if max counter is above the current save max, than start counting: update GUI as well;
 
 ## later:
 - check scale arrays in generate.scd

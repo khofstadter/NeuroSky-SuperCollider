@@ -2,7 +2,7 @@
 var neuroskyButton;
 var selectIsletButton;
 var autoMoveButton;
-w= GUI.window.new("focus", Rect(1000, 800, 210, 480)).front;
+w= GUI.window.new("focus-neurofeedback", Rect(1000, 800, 210, 480)).front;
 ~toMoveBox= 0 ! 6;
 ~rewardPointsBox= 0 ! 6;
 ~tthKnob= 0 ! 2;

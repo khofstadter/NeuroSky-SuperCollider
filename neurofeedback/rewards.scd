@@ -1,4 +1,5 @@
 // REWARD CALCULATION TASK (~rewCalcTask) & REWARD TASKS (~rewTask)
+// TODO why is tm Array not integer?
 
 ~rewardPoints = Array.fill2D(2, 4,{0});
 ~attention=0; //do I need this, maybe to be safe?
@@ -100,7 +101,7 @@ toMoveVal when equals ~rewardPoints:
         });
 
 
-        //	tmPost.start; // posts the tm (array with 6 timers made below)
+        tmPost.start; // posts the tm (array with 6 timers made below)
 
         //reward Timers (arguments are index numbers)
         // tm: [0,0,0,0,0,0]
@@ -283,7 +284,7 @@ toMoveVal when equals ~rewardPoints:
 (
 /*
 REWARD TASKS (~rewTask)
-that when '~rewardPoints array' changes trigger sounds or certain behaviours.
+that when '~rewardPoints array' changes trigger sounds or certain musical behaviours
 
 |track, idx0, idx1, style, fromBeat, loadFile0, loadFile1, loadFile2, loadFile3, loadFile4| - if only one file is needed then you don't have to add loadFile2, ...
 

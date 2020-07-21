@@ -1,4 +1,4 @@
-var window=Window.new("sequencer", Rect(1440-950,900-680,1000,700)).front;//(1440 x 900);
+var window=Window.new("focus-sequencer", Rect(1440-950,900-680,1000,700)).front;//(1440 x 900);
 var composite=CompositeView(window, Rect(0,0,1010,800));
 
 // control Specs for GUI
