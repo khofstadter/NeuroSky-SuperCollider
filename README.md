@@ -7,11 +7,13 @@ Two parts:
 1. focus-neurofeedback
 2. focus-sequencer
 
-![screenshot](screenshot-focus-interface?raw=true "focus-nf")
+![screenshot](screenshot-focus-interface.jpg?raw=true "focus-nf")
 
 'eeg-devices/neurosky' folder contains documents and mac driver for NeuroSky.
 
 ## log
+* 0.1.9
+  - fix for compressor synth (Fredrik)
 * 0.1.8
   - NeuroSky docs and driver added to extra folders;
   - organise synths;
