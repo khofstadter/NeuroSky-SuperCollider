@@ -33,7 +33,6 @@ Two parts:
 * 0.1.3.7 (2016-06-05)
 
 ## TODO
-- waiting for Fredrik's feedback;
 - manual GUI update of TTH - possible?
 - make videos (nf and sequencer)
 - make reset load at the beginning of each island (~loadFile.value(track:{all},filename:0);)
