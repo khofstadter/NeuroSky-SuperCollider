@@ -13,7 +13,6 @@ i[0][0]=Routine {
 	//
 ~usedTasks[0]=~rewCalcTask.value(~aTimeThVal,~mTimeThVal,~toMoveVal).start;
 
-
 	//tracks scheduled with tempoClock
 	~onOff=0 ! 16; //turn all off
 	m=(0.0 ! 10); //master volume in SynthDefs
@@ -38,14 +37,17 @@ i[0][0]=Routine {
 	~synth2[0]=\constantSaw2;
 	~m2[0]=0.5;
 
+	/* 113bmp (1.8bps for high ~meditation) - 127 (2.1bps for low ~meditation) */
 	~fadeConstantSynts.value(track:0,vol:1,time:3,
 		freqmidi:27,medOrAtt0:0,medOrAtt1:0).start;
 
+
+
 	//constantSynth track 1
 	~synth2[1]=\constantSaw1;
-	~m2[1]=0.5;
+	~m2[1]=0.3;
 	~fadeConstantSynts.value(track:1,vol:1,time:3,
-		freqmidi:75,medOrAtt0:1,medOrAtt1:0).start;
+		freqmidi:74,medOrAtt0:1,medOrAtt1:0).start;
 
 	//track 9 (victory sound)
 	//scheduled in reward.scd
@@ -60,6 +62,7 @@ i[0][0]=Routine {
 	~guiTask.start(AppClock);
 };
 
+
 i[0][1]=Routine {
 	("exit islet:"++~presentIslet).postln;
 	//TODO: disable eSenses
@@ -67,7 +70,7 @@ i[0][1]=Routine {
 	~quitUsedTasks.value;//remove rewCalc & rewTasks
 	~fadeConstantSynts.value(track:0,vol:1,time:1).start;//fade out
 	~fadeConstantSynts.value(track:1,vol:1,time:1).start;//fade out
-	4.wait;//safety delay
+	//4.wait;//safety delay
 	t.stop;
 	i[~selectIslet][0].reset.play; //enter a new islet (here specified)
 };

@@ -4,11 +4,11 @@ i[1][0]=Routine {
 	("islet:"++~presentIslet).postln;
 
 	//NF thresholds
-	~aThVal=80;
-	~mThVal=80;
+	~aThVal=70;
+	~mThVal=70;
 	~aTimeThVal=10;
 	~mTimeThVal=10;
-	~toMoveVal=[[0,4,0,0],[0,2,0,0]];
+	~toMoveVal=[[0,4,0,10],[0,4,0,10]];
 
 	//
 	~usedTasks[0]=~rewCalcTask.value(
@@ -20,7 +20,7 @@ i[1][0]=Routine {
 
 	//track 0
 	~synth[0]=\laserbeam;
-	m[0]=0.05;
+	m[0]=0.03;
 	~schedElasticLoopPlay[0]=~schedElasticLoop.value(track:2).play;
 	~usedTasks[1]=~rewTask.value(
 		track:0,idx0:0,idx1:0,
@@ -38,13 +38,33 @@ i[1][0]=Routine {
 
 	//track 2
 	~synth[2]=\FM0;
-	m[2]=0.18;
+	m[2]=0.8;
 	~loadFile.value(track:2,filename:220); //value: track, filename
 
-	//track 4
+	//track 3
 	~synth[3]=\nice1;
-	m[3]=0.2;
+	m[3]=0.05;
 	~loadFile.value(track:3,filename:220); //value: track, filename
+
+	//track 4
+	~synth[4]=\windX;
+	m[4]=0.02;
+	~schedElasticLoopPlay[2]=~schedElasticLoop.value(track:4).play;
+	~loadFile.value(track:4,filename:0);
+	~usedTasks[3]=~rewTask.value(
+		track:4,idx0:0,idx1:1,
+		style:0,fromBeat:0,loadFile0:0,loadFile1:221,loadFile2:222,
+		loadFile3:223,loadFile4:224).start;
+
+	//track 5
+	~synth[5]=\FM4;
+	m[5]=0.1;
+	~schedElasticLoopPlay[3]=~schedElasticLoop.value(track:5).play;
+	~loadFile.value(track:5,filename:0);
+	~usedTasks[5]=~rewTask.value(
+		track:5,idx0:1,idx1:1,
+		style:0,fromBeat:0,loadFile0:0,loadFile1:225,loadFile2:226,
+		loadFile3:227,loadFile4:228).start;
 
 	//track 9 (victory sound)
 	//scheduled in reward.scd
@@ -63,9 +83,11 @@ i[1][1]=Routine {
 	//TODO: disable eSenses
 	//TODO: move sliders back to 0".postln
 	~quitUsedTasks.value;//remove rewCalc & rewTasks
-	4.wait;//safety delay
+	//4.wait;//safety delay
 	t.stop;
 	~schedElasticLoopPlay[0].stop;
 	~schedElasticLoopPlay[1].stop;
+	~schedElasticLoopPlay[2].stop;
+	~schedElasticLoopPlay[3].stop;
 	i[~selectIslet][0].reset.play; //enter a new islet (here specified)
 };

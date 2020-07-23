@@ -335,7 +335,7 @@ SynthDef(~synthList2[0],{|freq=35,amp=0,master=0,out,change0=0,change1=0|
 		])})*AmpComp.kr(hz),
 		change0.linlin(0,1,100,150));
 	snd=HPF.ar(snd,70);
-	snd=LPF.ar(snd,16000);
+	snd=LPF.ar(snd,13000);
 	snd=Pan2.ar(snd,SinOsc.kr(change1.linlin(0,1,0.3,0.01)));
 	snd=FreeVerb.ar(snd,0.4,0.1,0.5,1,0);
 	Out.ar(out,snd*amp*master*4);

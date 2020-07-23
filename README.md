@@ -12,6 +12,9 @@ Two parts:
 'eeg-devices/neurosky' folder contains documents and mac driver for NeuroSky.
 
 ## log
+* 0.2
+  - added new mapping to islet1; 
+  - user can change TTH as well on GUI;
 * 0.1.9
   - fix for compressor synth (Fredrik)
 * 0.1.8
@@ -33,7 +36,8 @@ Two parts:
 * 0.1.3.7 (2016-06-05)
 
 ## TODO
-- manual GUI update of TTH - possible?
+- test with older NeuroSky
+- why is slider posting?
 - make videos (nf and sequencer)
 - make reset load at the beginning of each island (~loadFile.value(track:{all},filename:0);)
 - make each islet sound good (loops, rewards, victor sound) - try to use as many reward types as possible;

@@ -123,8 +123,8 @@ accumR = Array.fill(10, {arg i; Routine { |in|
 	var serialOpen =
 
 	Task({ sP = SerialPort(
-		 //"/dev/tty.MindWaveMobile-DevA-2",
-		"/dev/tty.MindWaveMobile-DevA", // stopped working in 2015 (Mavericks or new Nsky driver)
+		 "/dev/tty.MindWaveMobile-DevA-2",
+		//"/dev/tty.MindWaveMobile-DevA", // stopped working in 2015 (Mavericks or new Nsky driver)
 		//"/dev/tty.MindSet-DevB",
 		baudrate: 57600,
 		crtscts: true); //hardwareflow control

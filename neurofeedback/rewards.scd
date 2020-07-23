@@ -2,7 +2,7 @@
 // TODO why is tm Array not integer?
 
 ~rewardPoints = Array.fill2D(2, 4,{0});
-~attention=0; //do I need this, maybe to be safe?
+~attention=0;
 ~meditation=0;
 
 (
@@ -81,7 +81,7 @@ toMoveVal when equals ~rewardPoints:
                     //			min = (i/60).asInteger;
                     //			secs = (i % 60);
                     //			allsecs = i;
-                    tm[index] = i;
+                    tm[index] = i.asInteger;
                     1.wait;
                 });
             });
@@ -101,7 +101,7 @@ toMoveVal when equals ~rewardPoints:
         });
 
 
-        tmPost.start; // posts the tm (array with 6 timers made below)
+        //tmPost.start; // posts the tm (array with 6 timers made below)
 
         //reward Timers (arguments are index numbers)
         // tm: [0,0,0,0,0,0]

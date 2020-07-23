@@ -60,12 +60,9 @@ selectIsletButton.action = { arg menu;
 ~tthKnob[1]= Knob(w, Rect(35, 107, 30, 30));
 StaticText(w, Rect(20, 290, 150, 20)).string_("Meditation");
 ~slider2= Slider(w, Rect(20, 140, 55, 150))
-.value_(0)
-.action= {
-	var x;
-	x= 100*~slider2.value;
-	~meditation= x.asInteger;
-};
+.action_({
+	~meditation= (~slider2.value*100).asInteger; //different than other, put still posting;
+});
 ~slider4= Slider(w, Rect(75, 140, 10, 150))
 .focusColor_(Color.red(alpha:0.2))
 .background_(Color.blue)
@@ -74,16 +71,19 @@ StaticText(w, Rect(20, 290, 150, 20)).string_("Meditation");
 .value_(0)
 .background_(Color.grey)
 .normalColor_(Color.white)
+.action_{~toMoveVal[1][1]=~toMoveBox[3].value.asInteger}
 .align = \center;
 ~toMoveBox[4]= NumberBox(w, Rect(22, 380,30,20))
 .value_(0)
 .background_(Color.grey)
 .normalColor_(Color.white)
+.action_{~toMoveVal[1][2]=~toMoveBox[4].value.asInteger}
 .align = \center;
 ~toMoveBox[5]= NumberBox(w, Rect(22, 410,30,20))
 .value_(0)
 .background_(Color.grey)
 .normalColor_(Color.white)
+.action_{~toMoveVal[1][3]=~toMoveBox[5].value.asInteger}
 .align = \center;
 ~rewardPointsBox[3]= NumberBox(w, Rect(52, 350,30,20))
 .value_(0)
@@ -114,16 +114,19 @@ StaticText(w, Rect(130, 290, 150, 20)).string_("Attention");
 .value_(0)
 .background_(Color.grey)
 .normalColor_(Color.white)
+.action_{~toMoveVal[0][1]=~toMoveBox[0].value.asInteger}
 .align = \center;
 ~toMoveBox[1]= NumberBox(w, Rect(122, 380,30,20))
 .value_(0)
 .background_(Color.grey)
 .normalColor_(Color.white)
+.action_{~toMoveVal[0][2]=~toMoveBox[1].value.asInteger}
 .align = \center;
 ~toMoveBox[2]= NumberBox(w, Rect(122, 410,30,20))
 .value_(0)
 .background_(Color.grey)
 .normalColor_(Color.white)
+.action_{~toMoveVal[0][3]=~toMoveBox[2].value.asInteger}
 .align = \center;
 ~rewardPointsBox[0]= NumberBox(w, Rect(152, 350,30,20))
 .value_(0)

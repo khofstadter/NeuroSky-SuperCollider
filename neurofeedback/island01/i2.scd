@@ -1,15 +1,15 @@
 i[2][0]=Routine {
 	~makeTempoClock.value(1,32);
-	~tempo=[0.7,10!~beat];
+	~tempo=[0.7,10!~beat]; //0.7*10=7bps, no swing;
 	~presentIslet=2;
 	("islet:"++~presentIslet).postln;
 
 	//NF thresholds
-	~aThVal=75;
-	~mThVal=75;
+	~aThVal=70;
+	~mThVal=70;
 	~aTimeThVal=10;
 	~mTimeThVal=10;
-	~toMoveVal=[[0,5,2,0],[0,2,2,0]];
+	~toMoveVal=[[0,5,4,10],[0,5,4,10]];
 
 	~usedTasks[0]=~rewCalcTask.value(
 		~aTimeThVal,~mTimeThVal,~toMoveVal).start;
@@ -102,7 +102,7 @@ i[2][1]=Routine {
 	//TODO: disable eSenses
 	//TODO: move sliders back to 0".postln
 	~quitUsedTasks.value;//remove rewCalc & rewTasks
-	4.wait;//safety delay
+	//4.wait;//safety delay
 	t.stop;
 	i[~selectIslet][0].reset.play; //selected islet
 };

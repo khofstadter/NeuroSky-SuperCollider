@@ -27,3 +27,6 @@ s.waitForBoot {
 	);
 };
 );
+
+
+SerialPort.listDevices;
