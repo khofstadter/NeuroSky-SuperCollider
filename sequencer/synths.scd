@@ -331,12 +331,12 @@ SynthDef(~synthList2[0],{|freq=35,amp=0,master=0,out,change0=0,change1=0|
 				hz,
 				hz+1,
 				hz+2,
-				hz+3
+				hz+change1.linlin(0,1,0,3),
 		])})*AmpComp.kr(hz),
 		change0.linlin(0,1,100,150));
 	snd=HPF.ar(snd,70);
-	snd=LPF.ar(snd,13000);
-	snd=Pan2.ar(snd,SinOsc.kr(change1.linlin(0,1,0.3,0.01)));
+	snd=LPF.ar(snd,15000);
+	snd=Pan2.ar(snd,SinOsc.kr(1));
 	snd=FreeVerb.ar(snd,0.4,0.1,0.5,1,0);
 	Out.ar(out,snd*amp*master*4);
 }).add;
@@ -344,7 +344,7 @@ SynthDef(~synthList2[0],{|freq=35,amp=0,master=0,out,change0=0,change1=0|
 //constantSaw2
 SynthDef(~synthList2[1],{|freq=37,ringt=0.5,pan,amp=0,master=0,out,change0,change1|
 	var snd=VarSaw.ar(
-		freq:freq.midicps*change1.linlin(0,1,0.027,0.024),
+		freq:freq.midicps*change1.linlin(0,1,0.028,0.0255),
 		width:LFTri.kr(
 			freq:change1.linlin(0,1,freq.midicps,freq.midicps+12),
 			iphase:0,

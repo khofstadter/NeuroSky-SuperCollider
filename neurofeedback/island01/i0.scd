@@ -37,11 +37,12 @@ i[0][0]=Routine {
 	~synth2[0]=\constantSaw2;
 	~m2[0]=0.5;
 
-	/* 113bmp (1.8bps for high ~meditation) - 127 (2.1bps for low ~meditation) */
+	//medOrAtt0 (change0)
+	//medOrAtt1 (change1)
+	//0: use ~meditation;
+	//1: use ~attention;
 	~fadeConstantSynts.value(track:0,vol:1,time:3,
 		freqmidi:27,medOrAtt0:0,medOrAtt1:0).start;
-
-
 
 	//constantSynth track 1
 	~synth2[1]=\constantSaw1;

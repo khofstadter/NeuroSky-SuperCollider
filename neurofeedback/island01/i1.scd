@@ -38,17 +38,17 @@ i[1][0]=Routine {
 
 	//track 2
 	~synth[2]=\FM0;
-	m[2]=0.8;
+	m[2]=0.6;
 	~loadFile.value(track:2,filename:220); //value: track, filename
 
 	//track 3
 	~synth[3]=\nice1;
-	m[3]=0.05;
+	m[3]=0.2;
 	~loadFile.value(track:3,filename:220); //value: track, filename
 
 	//track 4
 	~synth[4]=\windX;
-	m[4]=0.02;
+	m[4]=0.05;
 	~schedElasticLoopPlay[2]=~schedElasticLoop.value(track:4).play;
 	~loadFile.value(track:4,filename:0);
 	~usedTasks[3]=~rewTask.value(
@@ -58,7 +58,7 @@ i[1][0]=Routine {
 
 	//track 5
 	~synth[5]=\FM4;
-	m[5]=0.1;
+	m[5]=0.2;
 	~schedElasticLoopPlay[3]=~schedElasticLoop.value(track:5).play;
 	~loadFile.value(track:5,filename:0);
 	~usedTasks[5]=~rewTask.value(
