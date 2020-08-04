@@ -26,7 +26,7 @@ guiHeader={|pos0, pos1|
 	var scaleChoice;
 
 	tcText=StaticText(composite, Rect(pos0+60,pos1+5,100,20))
-	.string_("Tempo Clock");
+	.string_("tempoClock");
 
 	tcLoopButton=Button(composite, Rect(150,5,30,20))
 	.states_([
@@ -60,7 +60,7 @@ guiHeader={|pos0, pos1|
 
 	scaleChoice=EZPopUpMenu.new(composite,
 		Rect(300, 30, 200, 20),
-		"Scale",
+		"scale",
 
 		[\biYu ->		{~scaleNb=0},
 			\blues ->		{~scaleNb=1},
@@ -346,7 +346,7 @@ guiTracks1={|track, pos0, pos1|
 	);
 
 	sampleDrag=DragSink(composite, Rect(pos0+10, pos1+48, 155, 15)).align_(\centre)
-	.string_( "Sample Drop" )
+	.string_( "Sample drop" )
 	//.canReceiveDragHandler_({ z.value.notEmpty })
 	.action_({
 		z=View.currentDrag.postln;

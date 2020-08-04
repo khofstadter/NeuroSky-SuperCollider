@@ -27,7 +27,7 @@ i[2][0]=Routine {
 	//track 1
 	t.schedAbs(~beat*2,{~onOff[1]=1;});//delayed
 	~synth[1]=\bells2;
-	m[1]=0.15;
+	m[1]=0.17;
 	~loadFile.value(track:1,filename:410);
 	~usedTasks[1]=~rewTask.value(
 		track:1,idx0:1,idx1:0,
@@ -35,8 +35,8 @@ i[2][0]=Routine {
 
 	//track 2
 	t.schedAbs(~beat*4,{~onOff[2]=1;});//delayed
-	~synth[2]=\FM0;
-	m[2]=0.1;
+	~synth[2]=\FM1;
+	m[2]=0.03;
 	~loadFile.value(track:2,filename:420);
 		~usedTasks[2]=~rewTask.value(
 	track:2,idx0:1,idx1:0,
@@ -44,8 +44,8 @@ i[2][0]=Routine {
 
 	//track 3
 	t.schedAbs(~beat*4,{~onOff[3]=1;});
-	~synth[3]=\FM3;
-	m[3]=0.1;
+	~synth[3]=\sine;
+	m[3]=0.07;
 	~loadFile.value(track:3,filename:430);
 	~usedTasks[3]=~rewTask.value(
 		track:3,idx0:0,idx1:1,
@@ -69,10 +69,10 @@ i[2][0]=Routine {
 	~trackSample[5]=Buffer.readChannel(
 		s,~pathname++"-samples/hihat17.wav");
 	m[5]=0.1;
-	~loadFile.value(track:5,filename:450);
+	~loadFile.value(track:5,filename:452);
 	~usedTasks[5]=~rewTask.value(
 		track:5,idx0:1,idx1:0,
-		style:0,fromBeat:0,loadFile0:450,loadFile1:451).start;
+		style:0,fromBeat:0,loadFile0:453,loadFile1:452).start;
 
 	//track 6
 	t.schedAbs(~beat*5,{~onOff[6]=1});
@@ -84,6 +84,7 @@ i[2][0]=Routine {
 	~usedTasks[6]=~rewTask.value(
 		track:6,idx0:1,idx1:0,
 		style:0,fromBeat:0,loadFile0:461,loadFile1:460).start;
+
 
 	//track 9 (victory sound)
 	//scheduled in reward.scd

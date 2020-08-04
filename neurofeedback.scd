@@ -23,7 +23,7 @@ s.waitForBoot {
 		~main= Synth(\main, addAction: \addToTail);
 		~autoMove=0;
 		(~pathway++"/neurofeedback/gui.scd".asString).load;
-		i[0][0].reset.play;
+		i[1][0].reset.play;
 	);
 };
 );

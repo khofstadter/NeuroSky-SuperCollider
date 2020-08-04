@@ -33,3 +33,5 @@ TempoClock
 ~midi.noteOn(0, 77, 100);
 ~midi.noteOn(1, 99, );
 ~midi.allNotesOff(1);
+
+p[0].size;
