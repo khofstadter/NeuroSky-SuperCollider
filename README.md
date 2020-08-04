@@ -1,10 +1,10 @@
-# focus-nf-neurosky-supercollider
+# focus-neurogame-neurosky-supercollider
 
 Neurofeedback with NeuroSky and SuperCollider. An audio neurogame.
 
 Two parts:
 
-1. focus-neurofeedback
+1. focus-neurogame
 2. focus-sequencer
 
 ![screenshot](screenshot-focus-interface.jpg?raw=true "focus-nf")
@@ -14,7 +14,7 @@ Two parts:
 ## log
 * 0.2.1
   - Fredik adds synths suggestions;
-  - some minor changes (manual update): new mix in islets, changed reward tasks; 
+  - some minor changes (manual update): new mix in islets, changed reward tasks;
 * 0.2
   - added new mapping to islet1;
   - user can change TTH as well on GUI;

@@ -11,10 +11,10 @@ s.waitForBoot {
 	(~pathway++"/sequencer/streams-midi.scd").load;
 	(~pathway++"/sequencer/generate.scd").load;
 	(~pathway++"/sequencer/load-save.scd").load;
-	(~pathway++"/neurofeedback/ns-parser.scd".asString).load;
-	(~pathway++"/neurofeedback/levels.scd".asString).load;
-	(~pathway++"/neurofeedback/island01/i-load.scd".asString).load;
-	(~pathway++"/neurofeedback/rewards.scd".asString).load;
+	(~pathway++"/neurogame/ns-parser.scd".asString).load;
+	(~pathway++"/neurogame/levels.scd".asString).load;
+	(~pathway++"/neurogame/island01/i-load.scd".asString).load;
+	(~pathway++"/neurogame/rewards.scd".asString).load;
 	(~pathway++"/sequencer/synths.scd").load;
 	(~pathway++"/sequencer/tempoClock.scd").load;
 	2.wait;
@@ -22,7 +22,7 @@ s.waitForBoot {
 		~compressor= Synth(\compressor, addAction: \addToTail);
 		~main= Synth(\main, addAction: \addToTail);
 		~autoMove=0;
-		(~pathway++"/neurofeedback/gui.scd".asString).load;
+		(~pathway++"/neurogame/gui.scd".asString).load;
 		i[1][0].reset.play;
 	);
 };
