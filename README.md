@@ -13,8 +13,8 @@ Two parts:
 
 ## log
 * 0.2.1
-- Fredik adds synths suggestions;
-- some minor changes (manual update): new mix in islets, changed reward tasks; 
+  - Fredik adds synths suggestions;
+  - some minor changes (manual update): new mix in islets, changed reward tasks; 
 * 0.2
   - added new mapping to islet1;
   - user can change TTH as well on GUI;
