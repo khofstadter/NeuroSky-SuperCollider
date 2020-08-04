@@ -82,10 +82,11 @@ SynthDef(~synthList[4],{|out,freq=37,ringt=0.9,amp=0,master=0,sustain=0.25|
 //FM0
 SynthDef(~synthList[5],{|out,freq,sustain,amp=0,master=0|
 	var hz=freq.midicps;
-	var snd=SinOsc.ar(hz,mul:400);
-	snd=SinOsc.ar(snd*sustain/2);
-	snd=snd*EnvGen.ar(Env.perc(0.01,sustain,1,-4),doneAction:2)*AmpComp.kr(hz);
-	snd=Pan2.ar(snd,FSinOsc.kr(0.1));
+	var env= EnvGen.ar(Env.perc(0.01,0.99,1,Rand(-5,-3)),timeScale:sustain,doneAction:2);
+	var snd=SinOsc.ar(hz,1-env*2pi,Rand(100, 500));
+	snd=SinOsc.ar(snd*sustain/2,Line.kr(Rand(2,6)*pi,0,0.05));
+	snd=snd*env*AmpCompA.kr(hz);
+	snd=Pan2.ar(snd,LFNoise2.kr(0.5, 0.5));
 	snd=LPF.ar(snd,18000);
 	Out.ar(out,snd*amp*master/2);
 }).add;
@@ -128,7 +129,7 @@ SynthDef(~synthList[8],{
 	var snd=
 	Blip.ar(hz,Line.kr(sustain/2,sustain,
 		dur:sustain*harmdur*amp),mul:678);
-	snd=SinOsc.ar(snd);
+	snd=SinOsc.ar(snd,LFNoise2.kr(Rand(0.1,2))*6pi);
 	snd=snd*EnvGen.ar(Env.perc(0.4,sustain,1,1),doneAction:2)*AmpComp.kr(hz);
 	snd=Pan2.ar(snd,move);
 	snd=HPF.ar(snd,50);
@@ -159,13 +160,14 @@ SynthDef(~synthList[9],{
 //bells2
 SynthDef(~synthList[10],{|out,freq=37,amp=0,master=0,sustain=0.25|
 	var hz=freq.midicps;
-	var snd=Pulse.ar(hz,sustain/10,0.2);
-	snd=Limiter.ar(snd,0.6);
-	snd=snd*EnvGen.ar(Env.perc(0.01,sustain,1,-8),doneAction:2)*AmpComp.kr(hz);
-	snd=GVerb.ar(snd,2,2);
+	var env= EnvGen.ar(Env.perc(Rand(0.005,0.015),sustain,1,-8));
+	var snd=Mix(VarSaw.ar(hz*[1,0.51,2],0,(env*Rand(1,1.1)).min(1).lag(0.05),[1,0.75,0.25]))*0.6;
+	snd=snd*env*AmpComp.kr(hz);
+	snd=snd+GVerb.ar(HPF.ar(snd,250),2,2,inputbw:0.1,spread:20);
 	snd=Pan2.ar(snd,0);
 	snd=HPF.ar(snd,50);
 	snd=LPF.ar(snd,18000);
+	DetectSilence.ar(snd,doneAction:2);
 	Out.ar(out,snd*amp*master/4);
 }).add;
 );
@@ -174,11 +176,14 @@ SynthDef(~synthList[10],{|out,freq=37,amp=0,master=0,sustain=0.25|
 SynthDef(~synthList[11],{
 |out,freq=37,amp=0,master=0,sustain=0.25|
 	var hz=freq.midicps;
-	var snd=SinOsc.ar(hz, 0);
-	snd=snd*EnvGen.ar(Env.perc(0.01,sustain,1,-4),doneAction:2)*AmpComp.kr(hz);
-	snd=Pan2.ar(snd,SinOsc.kr(sustain/3));
+	var env= EnvGen.ar(Env.perc(0.1,0.9,1,Rand(-5,-3)),timeScale:sustain);
+	var snd=SinOscFB.ar(hz, 1-env*0.9);
+	snd=snd*env*AmpCompA.kr(hz);
+	snd=Pan2.ar(snd,LFNoise2.kr(Line.kr(100,1,0.4)));
 	snd=HPF.ar(snd,50);
 	snd=LPF.ar(snd,18000);
+	snd= snd+AllpassN.ar(BPF.ar(snd,ExpRand(100,10000)),decaytime:3);
+	DetectSilence.ar(snd, doneAction:2);
 	Out.ar(out,snd*amp*master/7);
 }).add;
 );
@@ -326,17 +331,17 @@ SynthDef(~synthList[19],{|out,freq,buf,amp=0.5,master=0.0,sustain=0.25|
 SynthDef(~synthList2[0],{|freq=35,amp=0,master=0,out,change0=0,change1=0|
 	var hz=freq.midicps;
 	var snd=RLPF.ar(
-		Array.fill(4,{
-			Saw.ar([
+		Array.fill(4,{|i|
+			VarSaw.ar([
 				hz,
 				hz+1,
 				hz+2,
 				hz+change1.linlin(0,1,0,3),
-		])})*AmpComp.kr(hz),
-		change0.linlin(0,1,100,150));
+		], i/4, LFNoise1.kr(0.5!4).range(0.05, 0.95),LFNoise2.kr(0.5!4).range(0.7,1))})*AmpComp.kr(hz),
+		change0.linlin(0,1,100,150),LFNoise2.kr(0.5).range(0.4, 1.2));
 	snd=HPF.ar(snd,70);
-	snd=LPF.ar(snd,15000);
-	snd=Pan2.ar(snd,SinOsc.kr(1));
+	snd=LPF.ar(snd,LFNoise2.kr(0.1).exprange(10000,17000));
+	snd=Pan2.ar(snd,SinOsc.kr(1, 0, 0.8));
 	snd=FreeVerb.ar(snd,0.4,0.1,0.5,1,0);
 	Out.ar(out,snd*amp*master*4);
 }).add;
@@ -347,16 +352,16 @@ SynthDef(~synthList2[1],{|freq=37,ringt=0.5,pan,amp=0,master=0,out,change0,chang
 		freq:freq.midicps*change1.linlin(0,1,0.028,0.0255),
 		width:LFTri.kr(
 			freq:change1.linlin(0,1,freq.midicps,freq.midicps+12),
-			iphase:0,
-			mul:0,
+			mul:0,  //is actually not working because *0 all the time
 			add:0.5)
 	);
 	var dynfreqs=[freq.midicps,(freq+12).midicps,(freq+24).midicps];
 	var ringtimes=[ringt,ringt,ringt];//couldbychangedbyeeg
 	snd=Klank.ar(`[dynfreqs,nil,ringtimes],snd);
-	snd=Pan2.ar(snd,SinOsc.kr(change1.linlin(0,1,0.6,0.01)));
+	snd=Pan2.ar(snd,SinOsc.kr(change1.linlin(0,1,0.6,0.01),0,0.9));
+	snd=HPF.ar(snd,7);
 	snd=HPF.ar(snd,70);
-	snd=LPF.ar(snd,change0.linexp(0,1,17000,300));
+	snd=LPF.ar(snd,change0.lag(1).linexp(0,1,17000,300));
 	snd=FreeVerb.ar(snd,0.73,0.7,0.5,1,0);
 	Out.ar(out,snd*amp*master*4);
 }).add;
@@ -367,7 +372,8 @@ SynthDef(~synthList2[1],{|freq=37,ringt=0.5,pan,amp=0,master=0,out,change0,chang
 SynthDef(\compressor,{
 	var in,compressed,snd;
 	in=In.ar(0,2);
-	snd=Compander.ar(in,in,0.1,1,1/3,0.01,0.01);
+	snd= Limiter.ar(in).tanh;
+	//snd=Compander.ar(in,in,0.1,1,1/3,0.01,0.01);
 	ReplaceOut.ar(0,snd);
 }).add;
 
