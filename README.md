@@ -12,8 +12,11 @@ Two parts:
 'eeg-devices/neurosky' folder contains documents and mac driver for NeuroSky.
 
 ## log
+* 0.2.1
+- Fredik adds synths suggestions;
+- some minor changes (manual update): new mix in islets, changed reward tasks; 
 * 0.2
-  - added new mapping to islet1; 
+  - added new mapping to islet1;
   - user can change TTH as well on GUI;
 * 0.1.9
   - fix for compressor synth (Fredrik)
