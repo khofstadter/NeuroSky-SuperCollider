@@ -168,7 +168,7 @@ SynthDef(~synthList[10],{|out,freq=37,amp=0,master=0,sustain=0.25|
 	snd=HPF.ar(snd,50);
 	snd=LPF.ar(snd,18000);
 	DetectSilence.ar(snd,doneAction:2);
-	Out.ar(out,snd*amp*master/4);
+	Out.ar(out,snd*amp*master/6);
 }).add;
 );
 (

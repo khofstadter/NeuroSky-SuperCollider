@@ -1,13 +1,13 @@
-# focus-neurogame-neurosky-supercollider
+# neurosky-supercollider
 
-Neurofeedback with NeuroSky and SuperCollider. An audio neurogame.
+A NeuroSky and SuperCollider interface. An audio neurogame.
 
-Two parts:
+The interface (neurogame) has two main parts:
 
-1. focus-neurogame
-2. focus-sequencer
+- neurofeedback system
+- sequencer (can be accessed separately as a GUI)
 
-![screenshot](screenshot-focus-interface.jpg?raw=true "focus-nf")
+![screenshot](screenshot.jpg?raw=true "focus-nf")
 
 'eeg-devices/neurosky' folder contains documents and mac driver for NeuroSky.
 
@@ -39,12 +39,13 @@ Two parts:
 * 0.1.3.7 (2016-06-05)
 
 ## TODO
-- test with older NeuroSky
+- better vicory sound, perhaps different one for all islets
 - why is slider posting?
 - make videos (nf and sequencer)
 - make reset load at the beginning of each island (~loadFile.value(track:{all},filename:0);)
-- make each islet sound good (loops, rewards, victor sound) - try to use as many reward types as possible;
+- make each islet sound good (rewards, victor sound) - try to use as many reward types as possible;
 - if max counter is above the current save max, than start counting: update GUI as well;
+- TTH should restart when signal goes below TH (not when it goes above TH again)
 
 ## later:
 - check scale arrays in generate.scd
