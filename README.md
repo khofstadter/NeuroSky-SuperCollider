@@ -11,7 +11,15 @@ The interface (neurogame) has two main parts:
 
 'eeg-devices/neurosky' folder contains documents and mac driver for NeuroSky.
 
+_extra:_
+1. sequencer can send messages to [<kbd>InScore</kbd>](http://inscore.sourceforge.net/) via [<kbd>R.Hoadley</kbd>](http://rhoadley.net/)'s SuperCollider class;
+
+![sequencer to InScore](sequenceToInScore.gif)
+
+
 ## log
+* 0.2.2
+  - added last version of InScore experiment; 
 * 0.2.1
   - Fredik adds synths suggestions;
   - some minor changes (manual update): new mix in islets, changed reward tasks;
