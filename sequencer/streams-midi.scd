@@ -8,7 +8,7 @@ TODO
 */
 
 //pattern for all tracks with pitch, amp, envelope and duration
-~beat = 32; //4-256
+//~beat = 32; //4-256
 ~size = 12; //nb. of instruments/tracks
 p = Array.fill3D(~size, ~beat, 4, 0);
 ~memL = [p.deepCopy,p.deepCopy,p.deepCopy,p.deepCopy];

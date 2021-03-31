@@ -6,6 +6,7 @@ s.options.numInputBusChannels= 0;
 s.reboot;s.meter;
 s.latency= 0.05;
 s.waitForBoot {
+	~beat=32;
 	~pathway= thisProcess.nowExecutingPath.dirname;
 	~pathname= (~pathway++"/sequencer/load-save/").asString;
 	(~pathway++"/sequencer/streams-midi.scd").load;

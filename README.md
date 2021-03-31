@@ -19,7 +19,7 @@ _extra:_
 
 ## log
 * 0.2.2
-  - added last version of InScore experiment; 
+  - added last version of InScore experiment;
 * 0.2.1
   - Fredik adds synths suggestions;
   - some minor changes (manual update): new mix in islets, changed reward tasks;
@@ -47,7 +47,8 @@ _extra:_
 * 0.1.3.7 (2016-06-05)
 
 ## TODO
-- better vicory sound, perhaps different one for all islets
+- in sequencer GUI (and perhaps neurogame) add control for how random certain parameters in the synths should be - this could add more variety to the music, especially when it is long looped compositions; 
+- better victory sound, perhaps different one for all islets
 - why is slider posting?
 - make videos (nf and sequencer)
 - make reset load at the beginning of each island (~loadFile.value(track:{all},filename:0);)

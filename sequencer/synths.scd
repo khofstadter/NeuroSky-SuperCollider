@@ -317,7 +317,7 @@ SynthDef(~synthList[18],{|out,freq=24,amp=0,master=0,sustain=0.25|
 //sample
 SynthDef(~synthList[19],{|out,freq,buf,amp=0.5,master=0.0,sustain=0.25|
 	var snd;
-	snd=PlayBuf.ar(2,buf,(freq/60),doneAction:2);//monoagain;
+	snd=PlayBuf.ar(1,buf,(freq/60),doneAction:2);//monoagain;
 	snd=snd*EnvGen.ar(Env.perc(0.01,sustain,1,-8),doneAction:2);
 	//	snd=Pan2.ar(snd,0);
 	snd=Splay.ar(snd);

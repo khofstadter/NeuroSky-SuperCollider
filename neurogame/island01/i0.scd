@@ -35,7 +35,7 @@ i[0][0]=Routine {
 
 	//constantSynth track 0
 	~synth2[0]=\constantSaw2;
-	~m2[0]=0.5;
+	~m2[0]=0.4;
 
 	//medOrAtt0 (change0)
 	//medOrAtt1 (change1)
@@ -46,7 +46,7 @@ i[0][0]=Routine {
 
 	//constantSynth track 1
 	~synth2[1]=\constantSaw1;
-	~m2[1]=0.3;
+	~m2[1]=0.2;
 	~fadeConstantSynts.value(track:1,vol:1,time:3,
 		freqmidi:74,medOrAtt0:1,medOrAtt1:0).start;
 
