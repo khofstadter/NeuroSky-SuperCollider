@@ -1,0 +1,48 @@
+var o, p;
+o = [
+	Array.prNew(16),  Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  
+	Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  
+	Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  
+	Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  Array.prNew(4),  
+	Array.prNew(4)
+];
+p = [
+	// Array
+	0, [ o[1],  o[2],  o[3],  o[4],  
+		o[5],  o[6],  o[7],  o[8],  
+		o[9],  o[10],  o[11],  o[12],  
+		o[13],  o[14],  o[15],  o[16] ],  
+	// Array
+	1, [ 58.0,  0.3,  4.0,  0.27 ],  
+	// Array
+	2, [ 51.0,  0.6,  1.0,  0.27 ],  
+	// Array
+	3, [ 80.0,  0.6,  3.0,  0.27 ],  
+	// Array
+	4, [ 56.0,  0.5,  3.0,  0.27 ],  
+	// Array
+	5, [ 53.0,  0.4,  2.0,  0.19 ],  
+	// Array
+	6, [ 68.0,  0.7,  3.0,  0.01 ],  
+	// Array
+	7, [ 56.0,  0.15,  0.9,  0.01 ],  
+	// Array
+	8, [ nil,  0.04,  0.5,  0.01 ],  
+	// Array
+	9, [ nil,  nil,  0.0,  0.01 ],  
+	// Array
+	10, [ nil,  nil,  0.0,  0.01 ],  
+	// Array
+	11, [ nil,  nil,  0.0,  0.01 ],  
+	// Array
+	12, [ nil,  nil,  0.0,  0.01 ],  
+	// Array
+	13, [ nil,  nil,  0.0,  0.01 ],  
+	// Array
+	14, [ nil,  nil,  0.0,  0.01 ],  
+	// Array
+	15, [ nil,  nil,  0.0,  0.01 ],  
+	// Array
+	16, [ nil,  nil,  0.0,  0.01 ]
+];
+prUnarchive(o,p);
